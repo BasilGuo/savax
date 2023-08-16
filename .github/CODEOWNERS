@@ -1,5 +1,5 @@
 # Automatically generated CODEOWNERS
 # Regenerate with `make update-codeowners`
-draft-savax-control.md basilguo@163.com
-draft-savax-data.md basilguo@163.com
-draft-savax-protocol.md basilguo@163.com
+draft-xu-savax-control.md xuke@tsinghua.edu.cn jianping@cernet.edu.cn wangxiaoliang0623@foxmail.com guoyangfei@zgclab.edu.cn
+draft-xu-savax-data.md xuke@tsinghua.edu.cn jianping@cernet.edu.cn wangxiaoliang0623@foxmail.com guoyangfei@zgclab.edu.cn
+draft-xu-savax-protocol.md xuke@tsinghua.edu.cn jianping@cernet.edu.cn wangxiaoliang0623@foxmail.com guoyangfei@zgclab.edu.cn
