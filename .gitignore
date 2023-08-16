@@ -17,9 +17,9 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-savax-control.xml
-draft-savax-data.xml
-draft-savax-protocol.xml
+draft-xu-savax-control.xml
+draft-xu-savax-data.xml
+draft-xu-savax-protocol.xml
 package-lock.json
 report.xml
 !requirements.txt
