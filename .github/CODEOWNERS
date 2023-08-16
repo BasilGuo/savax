@@ -1,0 +1,5 @@
+# Automatically generated CODEOWNERS
+# Regenerate with `make update-codeowners`
+draft-savax-control.md basilguo@163.com
+draft-savax-data.md basilguo@163.com
+draft-savax-protocol.md basilguo@163.com
