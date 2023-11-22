@@ -5,10 +5,10 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                     J. Wu
 Intended status: Standards Track                                 X. Wang
-Expires: 17 February 2024                            Tsinghua University
+Expires: 25 May 2024                                 Tsinghua University
                                                                   Y. Guo
-                                                                 ZGC Lab
-                                                          16 August 2023
+                                                 Zhongguancun Laboratory
+                                                        22 November 2023
 
 
   Control Plane of Inter-Domain Source Address Validation Architecture
@@ -21,9 +21,9 @@ Abstract
    of the source address and malicious attacks have been launched using
    spoofed source addresses.  The inter-domain source address validation
    architecture is an effort to enhance the Internet by using state
-   machine to generate consistent tags.  When communicating between two
-   end hosts at different ADs of IPv6 network, tags will be added to the
-   packets to identify the authenticity of the IPv6 source address.
+   machines to generate consistent tags.  When communicating between two
+   end hosts at different ADs of the IPv6 network, tags will be added to
+   the packets to identify the authenticity of the IPv6 source address.
 
 Status of This Memo
 
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 February 2024.
+   This Internet-Draft will expire on 25 May 2024.
 
 Copyright Notice
 
@@ -92,9 +92,9 @@ Table of Contents
    it is a packet with a forged source address.
 
    In the process of packet forwarding, if the source address and the
-   destination address of this packet both are addresses in the trust
-   alliance, however the tag is not added or incorrectly added, AER of
-   the destination AD determines that the source address is forged and
+   destination address of this packet both belong to the trust alliance,
+   but the tag is not added or incorrectly added, the AER of the
+   destination AD determines that the source address is forged and
    directly discards this packet.  The destination AD forwards the
    packet directly for packets whose source address is an address
    outside the trust alliance.
@@ -102,14 +102,14 @@ Table of Contents
    This document mainly studies the relevant specifications of the
    control plane of the inter-domain source address validation
    architecture mechanism between ADs, which will protect IPv6 networks
-   from being forged source address.  You could see [RFC8200] for more
-   details about IPv6.  It stipulates the design of the consortium
-   blockchain, the nodes' joining and exiting, the maintenance of trust
-   alliance information based on the consortium blockchain, and the
-   maintenance of the state machine.  Its promotion and application can
-   realize the standardization of the control plane in the SAVA-X to
-   facilitate the related equipment developed by different manufacturers
-   and organizations to cooperate to accomplish the inter-domain source
+   from being forged source addresses.  See [RFC8200] for more details
+   about IPv6.  It stipulates the design of the consortium blockchain,
+   the nodes' joining and exiting, the maintenance of trust alliance
+   information based on the consortium blockchain, and the maintenance
+   of the state machine.  Its promotion and application can realize the
+   standardization of the control plane in the SAVA-X to facilitate the
+   related equipment developed by different manufacturers and
+   organizations to cooperate to accomplish the inter-domain source
    address validation jointly.
 
 2.  Conventions and Definitions
@@ -125,34 +125,27 @@ Table of Contents
    +==============+====================================================+
    | Abbreviation | Description                                        |
    +==============+====================================================+
-   | AD           | Address Domain, the unit of a trust                |
-   |              | alliance, which is an address set                  |
+   | ACS          | AD Control Server.  The server maintains           |
+   |              | the state machine with other ACS and               |
+   |              | distributes information to AER.                    |
+   +--------------+----------------------------------------------------+
+   | AD           | Address Domain.  The unit of a trust               |
+   |              | alliance.  It is an address set                    |
    |              | consisting of all IPv6 addresses                   |
    |              | corresponding to an IPv6 address prefix.           |
-   +--------------+----------------------------------------------------+
-   | TA           | Trust Alliance, the IPv6 network that              |
-   |              | uses the SAVA-X mechanism.                         |
-   +--------------+----------------------------------------------------+
-   | STA          | sub-Trust Alliance, parts of TA.                   |
-   +--------------+----------------------------------------------------+
-   | STA-admin    | STA Administrator, the administrator of            |
-   |              | STA.                                               |
-   +--------------+----------------------------------------------------+
-   | ACS          | AD Control Server, the server that                 |
-   |              | matains state machine with other ACS and           |
-   |              | distribute information to AER.                     |
-   +--------------+----------------------------------------------------+
-   | AER          | AD border router, which is placed at the           |
-   |              | boundary of an AD of STA.                          |
    +--------------+----------------------------------------------------+
    | ADID         | The identity of an AD.                             |
    +--------------+----------------------------------------------------+
    | ADID_Rec     | The record of a number of an AD.                   |
    +--------------+----------------------------------------------------+
-   | ARI_Rec      | The record with relavent information of            |
-   |              | an AD or STA.                                      |
+   | AER          | AD border router, which is placed at the           |
+   |              | boundary of an AD of STA.                          |
    +--------------+----------------------------------------------------+
-   | API_Rec      | The record of prefix of an AD or STA.              |
+   | API_Rec      | The record of the prefix of an AD or               |
+   |              | STA.                                               |
+   +--------------+----------------------------------------------------+
+   | ARI_Rec      | The record with relevant information of            |
+   |              | an AD or STA.                                      |
    +--------------+----------------------------------------------------+
    | CSR          | Certificate Signing Request, which is              |
    |              | used for an AD or STA to join or exit              |
@@ -161,8 +154,16 @@ Table of Contents
    | SM           | State Machine, which is maintained by a            |
    |              | pair of ACS to generate tags.                      |
    +--------------+----------------------------------------------------+
-   | Tag          | The authentic identification of source             |
-   |              | address of a packet.                               |
+   | STA          | sub-Trust Alliance, parts of TA.                   |
+   +--------------+----------------------------------------------------+
+   | STA-admin    | STA Administrator, the administrator of            |
+   |              | STA.                                               |
+   +--------------+----------------------------------------------------+
+   | TA           | Trust Alliance.  The IPv6 network that             |
+   |              | uses the SAVA-X mechanism.                         |
+   +--------------+----------------------------------------------------+
+   | Tag          | The authentic identification of the                |
+   |              | source address of a packet.                        |
    +--------------+----------------------------------------------------+
 
                                   Table 1
@@ -170,7 +171,7 @@ Table of Contents
 3.  The design of the Consortium Blockchain
 
    As discussed in the introduction, consortium blockchain will be used
-   in SAVA-X mechanism.
+   in the SAVA-X mechanism.
 
 3.1.  Trust Alliance
 
@@ -194,7 +195,7 @@ Table of Contents
    address domain.
 
    *  The primary address domain is the representative node of the
-      aforementioned sub-trust alliance and is used to establish
+      aforementioned sub-trust alliance and is used to establish a
       connection with the primary address domain of other sub-trust
       alliances.  In this way, the relationship between trust alliances
       finally forms a tree-like relationship, and there will be no
@@ -216,7 +217,7 @@ Table of Contents
    be sent outside the sub-trust alliance, but there are multiple paths
    to the destination AD in the sub-trust alliance, the sub-trust
    alliance may have multiple boundary ADs to reach the destination AD.
-   The sub-trust alliance doesnot know which boundary AD will be
+   The sub-trust alliance does not know which boundary AD will be
    selected during the packet forwarding.  Therefore, the primary
    function of AD_V is to prevent this by specifying the specific tag
    that should be added to the packet sent to the external address
@@ -231,9 +232,9 @@ Table of Contents
 
 3.2.  Consortium Blockchain
 
-   To simplify the control plane's design and avoid the single point
+   To simplify the control plane's design and avoid the single-point
    failure to subvert the SAVA-X, we design the SAVA-X with a
-   decentralized infrastructure which will store the information of the
+   decentralized infrastructure that will store the information of the
    trust alliance.
 
    The consortium blockchain is composed of the trust alliance
@@ -241,8 +242,8 @@ Table of Contents
    management committee chain is composed of several nodes to manage the
    administrator nodes of each sub-chain.  The consortium blockchain
    records information of the sub-trust alliance administrator node,
-   named as STA-admin (Sub Trust Alliance administrator), and member
-   list of each sub-chain which are packaged and submitted by the STA-
+   named STA-admin (Sub Trust Alliance administrator), and the member
+   list of each sub-chain which is packaged and submitted by the STA-
    admin.  Each sub-trust alliance has one STA-admin that is assumed by
    a specific elected AD in the sub-trust alliance.  The AD in the same
    sub-trust alliance forms a private chain to maintain the information
@@ -256,22 +257,22 @@ Table of Contents
 
 3.3.1.  Node Joining
 
-   This is the admission of joining of the sub-trustalliance member AD.
+   This is the admission of joining the sub-trust alliance member AD.
    The prerequisite for the AD to join the sub-trust alliance is to have
-   a certificate issued by the STA-admin firstly.  AD's Address Control
-   Server (ACS), which will maintain state machine with other ACS and
-   distribute alliance information and other information to AER, submits
-   a Certificate Signing Request file to the STA-admin of the sub-trust
-   alliance that it wants to join to request the certificate.  The CSR
-   file includes ADID, ACS address information, IPv6 address prefix
-   information, and its public key information.  If the file is valid,
-   STA-admin verifies the file, generates a node certificate, packages
-   the AD's information into a block, and updates the list of members of
-   the sub-consortium.  STA-admin submits the latest block to the
-   consortium blockchain, and the consortium blockchain updates the list
-   of alliance members of the entire trust alliance.
+   a certificate issued by the STA-admin first.  AD's Address Control
+   Server (ACS), which will maintain the state machine with other ACS
+   and distribute alliance information and other information to AER,
+   submits a Certificate Signing Request file to the STA-admin of the
+   sub-trust alliance that it wants to join to request the certificate.
+   The CSR file includes ADID, ACS address information, IPv6 address
+   prefix information, and its public key information.  If the file is
+   valid, STA-admin verifies the file, generates a node certificate,
+   packages the AD's information into a block, and updates the list of
+   members of the sub-consortium.  STA-admin submits the latest block to
+   the consortium blockchain, and the consortium blockchain updates the
+   list of alliance members of the entire trust alliance.
 
-   When a sub-trust alliance want to join the trust alliance, STA-admin
+   When a sub-trust alliance wants to join the trust alliance, STA-admin
    submits a CSR file to the consortium blockchain, including the member
    information list in the sub-chain and the information of the STA-
    admin.  It requires offline negotiation and cooperation to apply for
@@ -298,13 +299,13 @@ Table of Contents
 3.3.2.  Node Exiting
 
    The member node needs to submit the CSR file again to delete its
-   relevant information.  Its STA-admin decides whether to allow it exit
-   or not.  After passing the validation, nodes of the sub-blockchain
-   delete the relevant member information.  It also needs to submit a
-   CSR file for the exit of the sub-trust alliance node, which the
-   alliance management committee decides whether to allow it.  After
+   relevant information.  Its STA-admin decides whether to allow it to
+   exit or not.  After passing the validation, nodes of the sub-
+   blockchain delete the relevant member information.  It also needs to
+   submit a CSR file for the exit of the sub-trust alliance node, which
+   the alliance management committee decides whether to allow it.  After
    validating the receiving exit request, other sub-trust alliance
-   administrator nodes need to delete their maintenance-related sub
+   administrator nodes need to delete their maintenance-related sub-
    alliance node information.
 
 4.  Alliance Information and State Machine Maintenance based on the
@@ -312,7 +313,7 @@ Table of Contents
 
    On the AER of the destination AD, to validate the tag, it is first
    necessary to find out the sub-trust alliance number from the source
-   address of the arriving packet and find out its corresponding source
+   address of the arriving packet and find its corresponding source
    Address Domain Identity (ADID) number.  Then find the currently valid
    tag according to the ADID number.  The generation of the tag requires
    the maintenance of the state machine between the ACSes.  In SAVA-X,
@@ -334,7 +335,7 @@ Table of Contents
 4.1.  Address Domain Identity Record
 
    Address Domain Identity Record (ADID_Rec) is used to identify an
-   address domain uniquely in the trust alliacne.
+   address domain uniquely in the trust alliance.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -344,8 +345,8 @@ Table of Contents
     ~              Address Domain Identity (ADID)                   ~
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   ADID Type:  8-bit Type of ADID, 1 for 16-bits AS number, 2 for
-      32-bits AS number and other unassigned.
+   ADID Type:  8-bit Type of ADID, 1 for 16-bit AS number, 2 for 32-bit
+      AS number, 3 for 32-bit AD number, and other unassigned.
 
    ADID:  The 16-bit or 32-bit ADID number.  Its value can be the AS
       number or the number assigned by the consortium blockchain, and
@@ -380,7 +381,7 @@ Table of Contents
       record.  Others are unassigned.
 
    AD Type:  8-bit unsigned number indicating the role of AD. 0 for
-      ordinary AD, 1 for primary AD and 2 for boundary AD.  Others are
+      ordinary AD, 1 for primary AD, and 2 for boundary AD.  Others are
       unassigned.
 
    ADID_Rec:  Reference the ADID_Rec packet.
@@ -388,12 +389,12 @@ Table of Contents
    ACS Address:  128-bit the IPv6 address of ACS.
 
    Effecting Time:  64-bit time specifies when this record is applied.
-      It is recommended to use the 64 bits struct timeval format for the
+      It is recommended to use the 64-bit struct timeval format for the
       effecting time of the execution of this record.  If all bits of
       this field are 0 or earlier than the current time, it means that
       it takes effect immediately.
 
-   The role of address domain is essential, and each address domain
+   The role of the address domain is essential, and each address domain
    needs to be assigned a corresponding role according to its position
    in the sub-trust alliance.  A sub-trust alliance needs to set one
    (and only one) primary address domain.  It serves as the
@@ -404,8 +405,8 @@ Table of Contents
    of the sub-trust alliance.  A specific recommendation of a consensus
    algorithm could generate the primary address domain or be directly
    specified by the operator of the address domain with offline
-   negotiation.  The boundary address domain means that packet forwards
-   outside the address domain is no longer in the current sub-trust
+   negotiation.  The boundary address domain means that packets forwards
+   outside the address domain are no longer in the current sub-trust
    alliance.  The primary address domain can be a boundary address
    domain or not.  The tag replacement may occur in the boundary address
    domain.  The ordinary address domain is neither a primary address
@@ -414,8 +415,8 @@ Table of Contents
 4.3.  AD Prefix Information Record
 
    AD Prefix Information Record (API_Rec) is the prefix information
-   corresponds to the prefix of a specific AD.  An AD may have more than
-   one prefix, so registration information and prefix information
+   corresponding to the prefix of a specific AD.  An AD may have more
+   than one prefix, so registration information and prefix information
    records must be separated.
 
     0                   1                   2                   3
@@ -451,7 +452,7 @@ Table of Contents
       the corresponding member AD using together with Prefix Length.
 
    Effecting Time:  64-bit time specifies when this record is applied.
-      It is recommended to use the 64 bits struct timeval format for the
+      It is recommended to use the 64-bit struct timeval format for the
       effecting time of the execution of this record.  If all bits of
       this field are 0 or earlier than the current time, it means that
       it takes effect immediately.
@@ -469,10 +470,10 @@ Table of Contents
    could achieve this goal.  You could see [RFC5905] for more details.
 
    Although the NTP protocol can guarantee the time synchronization
-   between AERs, there may inevitably still have a slight time
-   difference between AERs and ACSes.  Therefore, each AER sets a shared
-   time slice.  With this time slice, both the expired tag and the new
-   tag are considered valid.  That is, more than one tag is valid for a
+   between AERs, there may inevitably still be a slight time difference
+   between AERs and ACSes.  Therefore, each AER sets a shared time
+   slice.  With this time slice, both the expired tag and the new tag
+   are considered valid.  That is, more than one tag is valid for a
    while.  The destination AD needs to validate all valid tags belonging
    to a specific source AD.  The tag is correct if one of the tags is
    validated.
@@ -500,10 +501,10 @@ Table of Contents
    In addition to the time difference, we should also take into account
    the packet transmission delay in the network.  Set the minimum delay
    to td_min and the maximum delay to td_max.  The expiration of Tag_n
-   should be extended td_max later, and the beginning of Tag_(n+1)
-   validity period should be delayed td_min later.  The shared time
+   should be extended to td_max later, and the beginning of Tag_(n+1)
+   validity period should be delayed to td_min later.  The shared time
    slice and tag validity period corrected according to transmission
-   delay are shown as follows, see Figure 3.
+   delay is shown as follows, see Figure 3.
 
    +----------------------+
    |      Tag_(n-1)       |
@@ -522,9 +523,9 @@ Table of Contents
    The expiration of the Tag_n is extended to te+td_max, and the
    beginning of the Tag_(n+1) is extended to te-td_min.  The parameters
    such as te, td_min, td_max, the period of the shared time slice, and
-   tag validity period are determined by the destination based on the
-   actual network environment.  Therefore, the lifecyle of a tag is as:
-   lifecycle = Transition Interval + 2te ????d_min + td_max.
+   the tag validity period are determined by the destination based on
+   the actual network environment.  Therefore, the lifecycle of a tag is
+   as: lifecycle = Transition Interval + 2te - td_min + td_max.
 
 6.  Security Consideration
 
@@ -552,14 +553,14 @@ Table of Contents
               Specification", RFC 5905, DOI 10.17487/RFC5905, June 2010,
               <https://www.rfc-editor.org/rfc/rfc5905>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
    [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", STD 86, RFC 8200,
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/rfc/rfc8200>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 Acknowledgments
 
@@ -568,28 +569,24 @@ Acknowledgments
 Authors' Addresses
 
    Ke Xu
-   Computer Science, Tsinghua University
-   Beijing
+   Tsinghua University
    China
    Email: xuke@tsinghua.edu.cn
 
 
    Jianping Wu
-   Computer Science, Tsinghua University
-   Beijing
+   Tsinghua University
    China
    Email: jianping@cernet.edu.cn
 
 
    Xiaoliang Wang
-   Computer Science, Tsinghua University
-   Beijing
+   Tsinghua University
    China
    Email: wangxiaoliang0623@foxmail.com
 
 
    Yangfei Guo
    Zhongguancun Laboratory
-   Beijing
    China
    Email: guoyangfei@zgclab.edu.cn
