@@ -1,0 +1,83 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-02-27T00:29:27.914410+00:00",
+  "repo": "BasilGuo/savax",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKHsHks5gFji7",
+      "title": "update for new version",
+      "url": "https://github.com/BasilGuo/savax/pull/1",
+      "state": "MERGED",
+      "author": "BasilGuo",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-11-22T03:47:32Z",
+      "updatedAt": "2023-11-22T05:46:14Z",
+      "baseRepository": "BasilGuo/savax",
+      "baseRefName": "main",
+      "baseRefOid": "cc7afc10fa4e8ee689abc93575d6cea2d91a1447",
+      "headRepository": "BasilGuo/savax",
+      "headRefName": "BasilGuo-v05",
+      "headRefOid": "afb1ee5cdfc8d0a0ba0f715d61b50b212f8c5a2d",
+      "closedAt": "2023-11-22T05:46:13Z",
+      "mergedAt": "2023-11-22T05:46:13Z",
+      "mergedBy": "BasilGuo",
+      "mergeCommit": {
+        "oid": "a6b27a662641f2c1b995def01592b341bdcf49ed"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
