@@ -5,10 +5,10 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                     J. Wu
 Intended status: Standards Track                                 X. Wang
-Expires: 25 May 2024                                 Tsinghua University
+Expires: 26 September 2024                           Tsinghua University
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                        22 November 2023
+                                                           25 March 2024
 
 
   Control Plane of Inter-Domain Source Address Validation Architecture
@@ -40,11 +40,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2024.
+   This Internet-Draft will expire on 26 September 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
