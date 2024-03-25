@@ -46,34 +46,37 @@ normative:
 
 informative:
 
+
 --- abstract
 
-TODO: This is for esav.
+TODO Abstract
+
 
 --- middle
 
 # Introduction
 
+TODO Introduction
+
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-## Terminology and Abbreviation
 
-TBD.
+# Security Considerations
 
-# Security Consideration
+TODO Security
 
-TBD.
 
-# IANA Consideration
+# IANA Considerations
 
-TBD.
+This document has no IANA actions.
+
 
 --- back
 
 # Acknowledgments
-
 {:numbered="false"}
 
 TODO acknowledge.
