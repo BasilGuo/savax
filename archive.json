@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-24T00:33:22.443493+00:00",
+  "timestamp": "2024-03-26T00:30:12.785000+00:00",
   "repo": "BasilGuo/savax",
   "labels": [
     {
@@ -76,6 +76,32 @@
       "mergeCommit": {
         "oid": "a6b27a662641f2c1b995def01592b341bdcf49ed"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOKHsHks5qoHxb",
+      "title": "init: draft-guo-6man-esav.md",
+      "url": "https://github.com/BasilGuo/savax/pull/2",
+      "state": "OPEN",
+      "author": "BasilGuo",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "All in one version of SAVA-X.",
+      "createdAt": "2024-03-25T08:27:58Z",
+      "updatedAt": "2024-03-25T08:35:19Z",
+      "baseRepository": "BasilGuo/savax",
+      "baseRefName": "main",
+      "baseRefOid": "a6b27a662641f2c1b995def01592b341bdcf49ed",
+      "headRepository": "BasilGuo/savax",
+      "headRefName": "BasilGuo-esav",
+      "headRefOid": "85d20078c281300e677d73b9852f0c5d7edaddc1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
