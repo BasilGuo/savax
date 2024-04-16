@@ -70,19 +70,19 @@ This document provides a framework for an inter-domain end-to-end data-plane app
 
 ## Terminology and Abbreviation
 
-The following terms are used in this document:
+The following terms are used in this document.
 
 TA:
-: Trust Alliance, the IPv6 network that uses the SAVA-X mechanism.|
+: Trust Alliance, the IPv6 network that uses the SAVA-X mechanism.
 
 ACS:
-: AD Control Server, the server that maintains consistent tag pairs with other ACS and distributes information to AER. |
+: AD Control Server, the server that maintains consistent tag pairs with other ACS and distributes information to AER.
 
 ABR:
-: AS or AS community border router, which is placed at the boundary of an AS of trust alliance. |
+: AS or AS community border router, which is placed at the boundary of an AS of trust alliance.
 
 Tag:
-: The authentic identification of the source address of a packet.|
+: The authentic identification of the source address of a packet.
 
 # ESAV Framework
 
