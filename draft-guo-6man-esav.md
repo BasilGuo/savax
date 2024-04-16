@@ -50,14 +50,11 @@ normative:
 informative:
   BCP38:
 
-
-
 --- abstract
 
 Because the Internet forwards packets according to the IP destination address, packet forwarding typically takes no place with inspection of the source address and malicious attacks have been launched using spoofed source addresses. The inter-domain source address validation architecture is an effort to enhance the Internet by using consistent tags. When communicating between two end hosts at different ASes, tags will be added to the packets at the source AS and validated at the destination AS to identify the authenticity of the IP source address.
 
 This memo introduces ESAV, an Inter-AS source address validation mechanism.
-
 
 --- middle
 
@@ -99,29 +96,30 @@ ESAV is a cryptography-based end-to-end inter-domain source address verification
 
 A typical workflow of ESAV is shown in {{figure1}}. AS1 joins the ESAV trust alliance with the signed join information and maintains the packet tag with AS2. After that, AS1 sends out the packet with Tag <AS1, AS2>, and AS2 validates it and replaces the Tag with <AS2, AS3>. Then AS3 validates and replaces the tag with <AS3, AS4>. After AS4 validation, confirm that the packet source address is true.
 
-    +----------------------------------------------------------------+
-    |             +---------------+                +---------------+ |
-    |             |               |   <AS3, AS4>   |               | |
-    |             |      AS3      |****************|      AS4      | |
-    |             |               |                |               | |
-    |             +---------------+                +---------------+ |
-    |           //            *    \\                                |
-    |         //               *     \\       AS Community (N-1)     |
-    +-------//------------------*------\\----------------------------+
-          //                     *       \\
-        //              <AS2, AS3>*        \\
-      //                           *         \\
-    //                              *          \\
-    +--------------------------------*-----------+
-    |                                 *          |
-    | +----------+                  +----------+ |
-    | |          |    <AS1, AS2>    |          | |
-    | |   AS1    |******************|   AS2    | |
-    | |          |                  |          | |
-    | +----------+                  +----------+ |
-    |               AS Community N               |
-    +--------------------------------------------+
-
+~~~~~~
++----------------------------------------------------------------+
+|             +---------------+                +---------------+ |
+|             |               |   <AS3, AS4>   |               | |
+|             |      AS3      |****************|      AS4      | |
+|             |               |                |               | |
+|             +---------------+                +---------------+ |
+|           //            *    \\                                |
+|         //               *     \\       AS Community (N-1)     |
++-------//------------------*------\\----------------------------+
+      //                     *       \\
+    //              <AS2, AS3>*        \\
+  //                           *         \\
+//                              *          \\
++--------------------------------*-----------+
+|                                 *          |
+| +----------+                  +----------+ |
+| |          |    <AS1, AS2>    |          | |
+| |   AS1    |******************|   AS2    | |
+| |          |                  |          | |
+| +----------+                  +----------+ |
+|               AS Community N               |
++--------------------------------------------+
+~~~~~~
 {: #figure1 title="ESAV workflow example."}
 
 # Control Plane
