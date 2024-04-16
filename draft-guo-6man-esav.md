@@ -43,10 +43,13 @@ author:
   email: jianping@cernet.edu.cn
 
 normative:
+  RFC4301:
+  RFC5210: # SAVA framework
+  RFC5635:
 
 informative:
-  RFC5210: # SAVA framework
-  
+  BCP38:
+
 
 
 --- abstract
