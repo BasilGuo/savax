@@ -51,24 +51,8 @@ normative:
   RFC1760:
   RFC5210:
   RFC8200:
+  SAVAX-CONTROL: I-D.xu-savax-control-v5
 
-informative:
-  savax-control:
-    title: Control Plane of Inter-Domain Source Address Validation Architecture
-    author:
-      -
-        org: Tsinghua University
-        name: Ke Xu
-      -
-        name: Jianping Wu
-        org: Tsinghua University
-      -
-        org: Tsinghua University
-        name: Xiaoliang Wang
-      -
-        org: Tsinghua University
-        name: Yangfei Guo
-    date: 2023
 
 
 # --- note_IESG_Note
