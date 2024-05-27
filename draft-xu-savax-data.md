@@ -1,6 +1,6 @@
 ---
 
-title: "Data Plane of Inter-Domain Source Address Validation Architecture"
+title: "Data Plane of Source Address Validation Architecture-eXternal (SAVA-X)"
 abbrev: "savax-data"
 category: std
 
@@ -27,11 +27,6 @@ author:
   country: China
   email: xuke@tsinghua.edu.cn
 -
-  name: Jianping Wu
-  org: Tsinghua University
-  country: China
-  email: jianping@cernet.edu.cn
--
   name: Xiaoliang Wang
   org: Tsinghua University
   country: China
@@ -41,6 +36,11 @@ author:
   org: Zhongguancun Laboratory
   country: China
   email: guoyangfei@zgclab.edu.cn
+-
+  name: Jianping Wu
+  org: Tsinghua University
+  country: China
+  email: jianping@cernet.edu.cn
 
 normative:
   RFC1760:
@@ -74,18 +74,39 @@ This document mainly studies the relevant specifications of the data plane of th
 
 ## Terminology and Abbreviation
 
-| Abbreviation | Description |
-|--------------+:---------------------|
-|ACS| AD Control Server. The server maintains the state machine with other ACS and distributes information to AER. |
-|AD | Address Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.|
-|ADID | The identity of an AD. |
-|ADID_Rec | The record of a number of an AD. |
-|AER| AD border router, which is placed at the boundary of an AD of STA. |
-|API_Rec| The record of the prefix of an AD or STA. |
-|ARI_Rec | The record with relevant information of an AD or STA.|
-|SM| State Machine, which is maintained by a pair of ACS to generate tags.|
-|TA | Trust Alliance. The IPv6 network that uses the SAVA-X mechanism.|
-|Tag| The authentic identification of the source address of a packet.|
+The following terms are used with a specific meaning:
+
+{: vspace="0"}
+
+ACS:
+: AD Control Server. The server maintains the state machine with other ACS and distributes information to AER.
+
+AD:
+: Address Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.
+
+ADID:
+: The identity of an AD.
+
+ADID_Rec:
+: The record of the number of an AD.
+
+AER:
+: AD border router, which is placed at the boundary of an AD of STA.
+
+API_Rec:
+: The record of the prefix of an AD or STA.
+
+ARI_Rec:
+: The record with relevant information of an AD or STA.
+
+SM:
+: State Machine, which is maintained by a pair of ACS to generate tags.
+
+TA:
+: Trust Alliance. The IPv6 network that uses the SAVA-X mechanism.
+
+Tag:
+: The authentic identification of the source address of a packet.
 
 # State Machine Mechanism
 
@@ -104,6 +125,8 @@ In SAVA-X, the state machine mechanism is used to generate, update, and manage t
                       +-------+
 ~~~~~
 {: #SM title="State machine mechanism."}
+
+{: vspace="0"}
 
 State:
 : `S_n` and `S_(n+1)` represent the current state and next state of the SM respectively.
@@ -268,14 +291,16 @@ The packet signature mechanism joins the 8-bit part of the payload in the packet
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Packet by Packet Signature                |
+|                     Packet-by-Packet Signature                |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |     Level       |    Length     |           Reserved          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~~
-{: #fig-pkt-sig title="Format of the packet by packet signature"}
+{: #fig-pkt-sig title="Format of the Packet-by-Packet signature"}
 
-Packet by Packet Signature:
+{: vspace="0"}
+
+Packet-by-Packet Signature:
 : The hash value of the original tag, source address, destination address, first 8-bit of payload, credible level, and credible prefix length.
 
 Level:
@@ -315,6 +340,8 @@ SAVA-X is designed for IPv6-enabled networks. It takes a destination option, SAV
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~~
 {: #fig-savax-opt title="Format of SAVA-X option."}
+
+{: vspace="0"}
 
 Option Type:
 : 8-bit field. The destination option type of SAVA-X = 59.
