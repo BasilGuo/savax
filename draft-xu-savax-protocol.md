@@ -51,7 +51,7 @@ normative:
   RFC1760:
   RFC5210:
   RFC8200:
-  SAVAX-CONTROL: I-D.xu-savax-control-v5
+  savax-control: I-D.xu-savax-control-v5
 
 
 
