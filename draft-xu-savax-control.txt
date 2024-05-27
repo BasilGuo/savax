@@ -3,15 +3,17 @@
 
 
 Network Working Group                                              K. Xu
-Internet-Draft                                                     J. Wu
-Intended status: Standards Track                                 X. Wang
-Expires: 25 May 2024                                 Tsinghua University
-                                                                  Y. Guo
+Internet-Draft                                                   X. Wang
+Intended status: Standards Track                     Tsinghua University
+Expires: 28 November 2024                                         Y. Guo
                                                  Zhongguancun Laboratory
-                                                        22 November 2023
+                                                                   J. Wu
+                                                     Tsinghua University
+                                                             27 May 2024
 
 
-  Control Plane of Inter-Domain Source Address Validation Architecture
+Control Plane of Source Address Validation Architecture-eXternal (SAVA-
+                                   X)
                      draft-xu-savax-control-latest
 
 Abstract
@@ -40,11 +42,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2024.
+   This Internet-Draft will expire on 28 November 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -122,51 +124,51 @@ Table of Contents
 
 2.1.  Terminology and Abbreviation
 
-   +==============+====================================================+
-   | Abbreviation | Description                                        |
-   +==============+====================================================+
-   | ACS          | AD Control Server.  The server maintains           |
-   |              | the state machine with other ACS and               |
-   |              | distributes information to AER.                    |
-   +--------------+----------------------------------------------------+
-   | AD           | Address Domain.  The unit of a trust               |
-   |              | alliance.  It is an address set                    |
-   |              | consisting of all IPv6 addresses                   |
-   |              | corresponding to an IPv6 address prefix.           |
-   +--------------+----------------------------------------------------+
-   | ADID         | The identity of an AD.                             |
-   +--------------+----------------------------------------------------+
-   | ADID_Rec     | The record of a number of an AD.                   |
-   +--------------+----------------------------------------------------+
-   | AER          | AD border router, which is placed at the           |
-   |              | boundary of an AD of STA.                          |
-   +--------------+----------------------------------------------------+
-   | API_Rec      | The record of the prefix of an AD or               |
-   |              | STA.                                               |
-   +--------------+----------------------------------------------------+
-   | ARI_Rec      | The record with relevant information of            |
-   |              | an AD or STA.                                      |
-   +--------------+----------------------------------------------------+
-   | CSR          | Certificate Signing Request, which is              |
-   |              | used for an AD or STA to join or exit              |
-   |              | the consortium blockchain.                         |
-   +--------------+----------------------------------------------------+
-   | SM           | State Machine, which is maintained by a            |
-   |              | pair of ACS to generate tags.                      |
-   +--------------+----------------------------------------------------+
-   | STA          | sub-Trust Alliance, parts of TA.                   |
-   +--------------+----------------------------------------------------+
-   | STA-admin    | STA Administrator, the administrator of            |
-   |              | STA.                                               |
-   +--------------+----------------------------------------------------+
-   | TA           | Trust Alliance.  The IPv6 network that             |
-   |              | uses the SAVA-X mechanism.                         |
-   +--------------+----------------------------------------------------+
-   | Tag          | The authentic identification of the                |
-   |              | source address of a packet.                        |
-   +--------------+----------------------------------------------------+
+   The following terms are used with a specific meaning:
 
-                                  Table 1
+   ACS:
+      AD Control Server.  The server maintains the state machine with
+      other ACS and distributes information to AER.
+
+   AD:
+      Address Domain.  The unit of a trust alliance.  It is an address
+      set consisting of all IPv6 addresses corresponding to an IPv6
+      address prefix.
+
+   ADID:
+      The identity of an AD.
+
+   ADID_Rec:
+      The record of the number of an AD.  AER:
+
+  
+      AD border router, which is placed at the boundary of an AD of STA.
+
+   API_Rec:
+      The record of the prefix of an AD or STA.
+
+   ARI_Rec:
+      The record with relevant information of an AD or STA.
+
+   CSR:
+      Certificate Signing Request, which is used for an AD or STA to
+      join or exit the consortium blockchain.
+
+   SM:
+      State Machine, which is maintained by a pair of ACS to generate
+      tags.
+
+   STA:
+      sub-Trust Alliance, parts of TA.
+
+   STA-admin:
+      STA Administrator, the administrator of STA.
+
+   TA:
+      Trust Alliance.  The IPv6 network that uses the SAVA-X mechanism.
+
+   Tag:
+      The authentic identification of the source address of a packet.
 
 3.  The design of the Consortium Blockchain
 
@@ -345,13 +347,15 @@ Table of Contents
     ~              Address Domain Identity (ADID)                   ~
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   ADID Type:  8-bit Type of ADID, 1 for 16-bit AS number, 2 for 32-bit
-      AS number, 3 for 32-bit AD number, and other unassigned.
+   ADID Type:
+      8-bit Type of ADID, 1 for 16-bit AS number, 2 for 32-bit AS
+      number, 3 for 32-bit AD number, and other unassigned.
 
-   ADID:  The 16-bit or 32-bit ADID number.  Its value can be the AS
-      number or the number assigned by the consortium blockchain, and
-      the specific length is determined by the ADID Type field.  When
-      each bit of ADID is 1, it represents that the AER requests the
+   ADID:
+      The 16-bit or 32-bit ADID number.  Its value can be the AS number
+      or the number assigned by the consortium blockchain, and the
+      specific length is determined by the ADID Type field.  When each
+      bit of ADID is 1, it represents that the AER requests the
       information of all members from ACS.
 
 4.2.  AD Registration Information Record
@@ -377,19 +381,24 @@ Table of Contents
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   Action:  8-bit instruction to add (ADD=1) or delete (DEL=2) this
-      record.  Others are unassigned.
+   Action:
+      8-bit instruction to add (ADD=1) or delete (DEL=2) this record.
+      Others are unassigned.
 
-   AD Type:  8-bit unsigned number indicating the role of AD. 0 for
-      ordinary AD, 1 for primary AD, and 2 for boundary AD.  Others are
+   AD Type:
+      8-bit unsigned number indicating the role of AD. 0 for ordinary
+      AD, 1 for primary AD, and 2 for boundary AD.  Others are
       unassigned.
 
-   ADID_Rec:  Reference the ADID_Rec packet.
+   ADID_Rec:
+      Reference the ADID_Rec packet.
 
-   ACS Address:  128-bit the IPv6 address of ACS.
+   ACS Address:
+      128-bit the IPv6 address of ACS.
 
-   Effecting Time:  64-bit time specifies when this record is applied.
-      It is recommended to use the 64-bit struct timeval format for the
+   Effecting Time:
+      64-bit time specifies when this record is applied.  It is
+      recommended to use the 64-bit struct timeval format for the
       effecting time of the execution of this record.  If all bits of
       this field are 0 or earlier than the current time, it means that
       it takes effect immediately.
@@ -405,12 +414,12 @@ Table of Contents
    of the sub-trust alliance.  A specific recommendation of a consensus
    algorithm could generate the primary address domain or be directly
    specified by the operator of the address domain with offline
-   negotiation.  The boundary address domain means that packets forwards
-   outside the address domain are no longer in the current sub-trust
-   alliance.  The primary address domain can be a boundary address
-   domain or not.  The tag replacement may occur in the boundary address
-   domain.  The ordinary address domain is neither a primary address
-   domain nor a boundary address domain.
+   negotiation.  The boundary address domain means that packets
+   forwarded outside the address domain are no longer in the current
+   sub-trust alliance.  The primary address domain can be a boundary
+   address domain or not.  The tag replacement may occur in the boundary
+   address domain.  The ordinary address domain is neither a primary
+   address domain nor a boundary address domain.
 
 4.3.  AD Prefix Information Record
 
@@ -439,20 +448,26 @@ Table of Contents
 
               Figure 1: Format of AD Prefix Information Record
 
-   Action:  8-bit instruction to add (ADD=1) or delete (DEL=2) this
-      record.  Others are unassigned.
+   Action:
+      8-bit instruction to add (ADD=1) or delete (DEL=2) this record.
+      Others are unassigned.
 
-   Alliance:  8-bit the sub-trust alliance number.
+   Alliance:
+      8-bit the sub-trust alliance number.
 
-   ADID_Rec:  Reference the ADID_Rec packet.
+   ADID_Rec:
+      Reference the ADID_Rec packet.
 
-   Prefix Length:  8-bit the length of the IPv6 prefix.
+   Prefix Length:
+      8-bit the length of the IPv6 prefix.
 
-   IPv6 Address:  128-bit indicates a certain address prefix operated by
-      the corresponding member AD using together with Prefix Length.
+   IPv6 Address:
+      128-bit indicates a certain address prefix operated by the
+      corresponding member AD using together with Prefix Length.
 
-   Effecting Time:  64-bit time specifies when this record is applied.
-      It is recommended to use the 64-bit struct timeval format for the
+   Effecting Time:
+      64-bit time specifies when this record is applied.  It is
+      recommended to use the 64-bit struct timeval format for the
       effecting time of the execution of this record.  If all bits of
       this field are 0 or earlier than the current time, it means that
       it takes effect immediately.
@@ -574,12 +589,6 @@ Authors' Addresses
    Email: xuke@tsinghua.edu.cn
 
 
-   Jianping Wu
-   Tsinghua University
-   China
-   Email: jianping@cernet.edu.cn
-
-
    Xiaoliang Wang
    Tsinghua University
    China
@@ -590,3 +599,9 @@ Authors' Addresses
    Zhongguancun Laboratory
    China
    Email: guoyangfei@zgclab.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   China
+   Email: jianping@cernet.edu.cn
