@@ -3,15 +3,16 @@
 
 
 Network Working Group                                              K. Xu
-Internet-Draft                                                     J. Wu
-Intended status: Standards Track                                 X. Wang
-Expires: 28 November 2024                            Tsinghua University
-                                                                  Y. Guo
+Internet-Draft                                                   X. Wang
+Intended status: Standards Track                     Tsinghua University
+Expires: 28 November 2024                                         Y. Guo
                                                  Zhongguancun Laboratory
+                                                                   J. Wu
+                                                     Tsinghua University
                                                              27 May 2024
 
 
-   Data Plane of Inter-Domain Source Address Validation Architecture
+ Data Plane of Source Address Validation Architecture-eXternal (SAVA-X)
                        draft-xu-savax-data-latest
 
 Abstract
@@ -125,42 +126,41 @@ Table of Contents
 
 2.1.  Terminology and Abbreviation
 
-   +==============+====================================================+
-   | Abbreviation | Description                                        |
-   +==============+====================================================+
-   | ACS          | AD Control Server.  The server maintains           |
-   |              | the state machine with other ACS and               |
-   |              | distributes information to AER.                    |
-   +--------------+----------------------------------------------------+
-   | AD           | Address Domain.  The unit of a trust               |
-   |              | alliance.  It is an address set                    |
-   |              | consisting of all IPv6 addresses                   |
-   |              | corresponding to an IPv6 address prefix.           |
-   +--------------+----------------------------------------------------+
-   | ADID         | The identity of an AD.                             |
-   +--------------+----------------------------------------------------+
-   | ADID_Rec     | The record of a number of an AD.                   |
-   +--------------+----------------------------------------------------+
-   | AER          | AD border router, which is placed at the           |
-   |              | boundary of an AD of STA.                          |
-   +--------------+----------------------------------------------------+
-   | API_Rec      | The record of the prefix of an AD or               |
-   |              | STA.                                               |
-   +--------------+----------------------------------------------------+
-   | ARI_Rec      | The record with relevant information of            |
-   |              | an AD or STA.                                      |
-   +--------------+----------------------------------------------------+
-   | SM           | State Machine, which is maintained by a            |
-   |              | pair of ACS to generate tags.                      |
-   +--------------+----------------------------------------------------+
-   | TA           | Trust Alliance.  The IPv6 network that             |
-   |              | uses the SAVA-X mechanism.                         |
-   +--------------+----------------------------------------------------+
-   | Tag          | The authentic identification of the                |
-   |              | source address of a packet.                        |
-   +--------------+----------------------------------------------------+
+   The following terms are used with a specific meaning:
 
-                                  Table 1
+   ACS:
+      AD Control Server.  The server maintains the state machine with
+      other ACS and distributes information to AER.
+
+   AD:
+      Address Domain.  The unit of a trust alliance.  It is an address
+      set consisting of all IPv6 addresses corresponding to an IPv6
+      address prefix.
+
+   ADID:
+      The identity of an AD.
+
+   ADID_Rec:
+      The record of the number of an AD.
+
+   AER:
+      AD border router, which is placed at the boundary of an AD of STA.
+
+   API_Rec:
+      The record of the prefix of an AD or STA.
+
+   ARI_Rec:
+      The record with relevant information of an AD or STA.
+
+   SM:
+      State Machine, which is maintained by a pair of ACS to generate
+      tags.
+
+   TA:
+      Trust Alliance.  The IPv6 network that uses the SAVA-X mechanism.
+
+   Tag:
+      The authentic identification of the source address of a packet.
 
 3.  State Machine Mechanism
 
@@ -180,30 +180,34 @@ Table of Contents
 
                      Figure 1: State machine mechanism.
 
-   State:  S_n and S_(n+1) represent the current state and next state of
-      the SM respectively.
+   State:
+      S_n and S_(n+1) represent the current state and next state of the
+      SM respectively.
 
-   Tag:  Tag_n is generated in the progress of state transiting from S_n
-      to S_(n+1).
-
-   Algorithm Box:  A-Box is Alogorithm Box. It is used to transmit the
-      State and generate the tag.  It takes the current State as the
-      input and the following State and current tag as the output.  The
-      algorithm box consists of two parts: one is the transition
-      function transit(), S_(n+1) = transit(S_n); the second is the
-      function generate() to generate tags.  Tag_n = generate(S_n).  The
-      algorithm box (A-Box) is the core of the state machine.  It
-      determines the data structure of state and tag, the specific mode
-      of state machine implementation, as well as its security and
-      complexity.
-
-   Trigger:  It is used to trigger the transition of State.
-
-   Transition:  It reprents the progress of state transiting from S_n to
+   Tag:
+      Tag_n is generated in the progress of state transiting from S_n to
       S_(n+1).
 
-   Generation:  It represents the progress of calculating the current
-      tag from the current State.
+   Algorithm Box:
+      A-Box is Alogorithm Box. It is used to transmit the State and
+      generate the tag.  It takes the current State as the input and the
+      following State and current tag as the output.  The algorithm box
+      consists of two parts: one is the transition function transit(),
+      S_(n+1) = transit(S_n); the second is the function generate() to
+      generate tags.  Tag_n = generate(S_n).  The algorithm box (A-Box)
+      is the core of the state machine.  It determines the data
+      structure of state and tag, the specific mode of state machine
+      implementation, as well as its security and complexity.
+
+   Trigger:
+      It is used to trigger the transition of State.
+
+   Transition:
+      It reprents the progress of state transiting from S_n to S_(n+1).
+
+   Generation:
+      It represents the progress of calculating the current tag from the
+      current State.
 
 4.  Tag
 
@@ -555,22 +559,26 @@ Table of Contents
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     Packet by Packet Signature                |
+   |                     Packet-by-Packet Signature                |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Level       |    Length     |           Reserved          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 4: Format of the packet by packet signature
+             Figure 4: Format of the Packet-by-Packet signature
 
-   Packet by Packet Signature:  The hash value of the original tag,
-      source address, destination address, first 8-bit of payload,
-      credible level, and credible prefix length.
+   Packet-by-Packet Signature:
+      The hash value of the original tag, source address, destination
+      address, first 8-bit of payload, credible level, and credible
+      prefix length.
 
-   Level:  8-bit of credible level.
+   Level:
+      8-bit of credible level.
 
-   Length:  8-bit of credible prefix length.
+   Length:
+      8-bit of credible prefix length.
 
-   Reserved:  16-bit of reserved field. 0 will be padded.
+   Reserved:
+      16-bit of reserved field. 0 will be padded.
 
    Firstly, it takes the source address, destination address and the
    first 8-bit of the data part of the data packet from the data packet,
@@ -648,30 +656,36 @@ Table of Contents
 
                      Figure 5: Format of SAVA-X option.
 
-   Option Type:  8-bit field.  The destination option type of SAVA-X =
-      59.
+   Option Type:
+      8-bit field.  The destination option type of SAVA-X = 59.
 
-   Opt Data Len:  8-bit field.  The bytes length of the SAVA-X option.
-      Its value is 2 + LenOfAI + (TagLen + 1), where LenOfAI is 2 when
-      AI Type is 1, or 4 when AI Type is 2, or 0 default.
+   Opt Data Len:
+      8-bit field.  The bytes length of the SAVA-X option.  Its value is
+      2 + LenOfAI + (TagLen + 1), where LenOfAI is 2 when AI Type is 1,
+      or 4 when AI Type is 2, or 0 default.
 
-   Tag Len:  4-bit field.  The bytes length of TAG equals to (Tag Len +
-      1) * 8, e.g. if Tag Len = 7, it means SAVA-X uses 64 bits long
-      TAG.  It guarantees the length of TAG would be an integral
-      multiple of 8 bits.  The maximum length of TAG is 128 bits and the
-      minimum length of TAG is 32 bits.
+   Tag Len:
+      4-bit field.  The bytes length of TAG equals to (Tag Len + 1) * 8,
+      e.g. if Tag Len = 7, it means SAVA-X uses 64 bits long TAG.  It
+      guarantees the length of TAG would be an integral multiple of 8
+      bits.  The maximum length of TAG is 128 bits and the minimum
+      length of TAG is 32 bits.
 
-   AI Type:  4-bit field.  The type of Additional Information. 0 for no
+   AI Type:
+      4-bit field.  The type of Additional Information. 0 for no
       Additional Information, 1 for 16-bit long Additional Information,
       and 2 for 32-bit long Additional Information.  Others are not
       assigned.
 
-   Reserved:  These bits are not used now and must be zero.
+   Reserved:
+      These bits are not used now and must be zero.
 
-   TAG:  Variable-length field The actual tag, and its length is
-      determined by the Tag Len field.
+   TAG:
+      Variable-length field The actual tag, and its length is determined
+      by the Tag Len field.
 
-   Additional Information:  As defined in the AI Type field.
+   Additional Information:
+      As defined in the AI Type field.
 
 10.  Normative References
 
@@ -711,12 +725,6 @@ Authors' Addresses
    Email: xuke@tsinghua.edu.cn
 
 
-   Jianping Wu
-   Tsinghua University
-   China
-   Email: jianping@cernet.edu.cn
-
-
    Xiaoliang Wang
    Tsinghua University
    China
@@ -727,3 +735,9 @@ Authors' Addresses
    Zhongguancun Laboratory
    China
    Email: guoyangfei@zgclab.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   China
+   Email: jianping@cernet.edu.cn
