@@ -1,5 +1,5 @@
 ---
-title: "Communication Protocol Between the AD Control Server and the AD Edge Router of Inter-Domain Source Address Validation Architecture"
+title: "Communication Protocol Between the AD Control Server and the AD Edge Router of Source Address Validation Architecture-eXternal (SAVA-X)"
 abbrev: "savax-protocol"
 category: std
 
@@ -57,22 +57,15 @@ informative:
     title: Control Plane of Inter-Domain Source Address Validation Architecture
     author:
       -
-        ins: Computer Science
         org: Tsinghua University
         name: Ke Xu
       -
         name: Jianping Wu
-        org: Computer Science, Tsinghua University
-        abbrev: Tsinghua University
-        city: Beijing
-        country: China
-        email: jianping@cernet.edu.cn
+        org: Tsinghua University
       -
-        ins: Computer Science
         org: Tsinghua University
         name: Xiaoliang Wang
       -
-        ins: Institute for Network Sciences and Cyberspace
         org: Tsinghua University
         name: Yangfei Guo
     date: 2023
@@ -104,19 +97,42 @@ This document mainly studies the relevant specifications of the data plane of th
 
 ## Terminology and Abbreviation
 
-| Abbreviation | Description |
-|--------------+:---------------------|
-|ACS| AD Control Server. The server maintains the state machine with other ACS and distributes information to AER. |
-|AD | Address Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.|
-|ADID | The identity of an AD. |
-|ADID_Rec | The record of a number of an AD. |
-|AER| AD border router, which is placed at the boundary of an AD of STA. |
-|API_Rec| The record of the prefix of an AD or STA. |
-|ARI_Rec | The record with relevant information of an AD or STA.|
-|SM| State Machine, which is maintained by a pair of ACS to generate tags.|
-|SMI_Rec| The record of the state machine information. |
-|TA | Trust Alliance. The IPv6 network that uses the SAVA-X mechanism.|
-|Tag| The authentic identification of the source address of a packet.|
+The following terms are used with a specific meaning:
+
+{: vspace="0"}
+
+ACS:
+: AD Control Server. The server maintains the state machine with other ACS and distributes information to AER.
+
+AD:
+: Address Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.
+
+ADID:
+: The identity of an AD.
+
+ADID_Rec:
+: The record of the number of an AD.
+
+AER:
+: AD border router, which is placed at the boundary of an AD of STA.
+
+API_Rec:
+: The record of the prefix of an AD or STA.
+
+ARI_Rec:
+: The record with relevant information of an AD or STA.
+
+SM:
+: State Machine, which is maintained by a pair of ACS to generate tags.
+
+SMI_Rec:
+: The record of the state machine information.
+
+TA:
+: Trust Alliance. The IPv6 network that uses the SAVA-X mechanism.
+
+Tag:
+: The authentic identification of the source address of a packet.
 
 # Communication Protocol Format {#pkt-format}
 
@@ -141,6 +157,7 @@ Every AD should be placed at least one ACS, which is mainly responsible for main
 ~~~~~
 {: #fig-common-fmt title="General communication packet format."}
 
+{: vspace="0"}
 
 Version:
 : 8-bit, the current version=0b1 of SAVA-X.
@@ -236,6 +253,7 @@ State machine information record (SMI_Rec) represents the packet format used whe
 ~~~~~
 {: #fig-smi-rec title="Format of state machine information record."}
 
+{: vspace="0"}
 
 Action:
 : 8-bit, 1 for add or update this SMI_Rec.
@@ -767,6 +785,7 @@ Tag information deployment (TAG_INFO-Deploy) is sent from ACS to AER and AER add
 ~~~~~
 {: #fig-tag-fmt title="Format of tag information record."}
 
+{: vspace="0"}
 
 Action:
 : 8-bit filed. 1 for add (ADD=1) and 2 for delete (DEL=2).
