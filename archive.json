@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-26T00:35:34.846215+00:00",
+  "timestamp": "2024-05-28T00:32:34.054517+00:00",
   "repo": "BasilGuo/savax",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-11-22T03:47:32Z",
-      "updatedAt": "2023-11-22T05:46:14Z",
+      "updatedAt": "2024-05-27T00:36:17Z",
       "baseRepository": "BasilGuo/savax",
       "baseRefName": "main",
       "baseRefOid": "cc7afc10fa4e8ee689abc93575d6cea2d91a1447",
@@ -102,6 +102,34 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOKHsHks5wmp-A",
+      "title": "update for v06",
+      "url": "https://github.com/BasilGuo/savax/pull/3",
+      "state": "MERGED",
+      "author": "BasilGuo",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-27T01:07:28Z",
+      "updatedAt": "2024-05-27T01:08:55Z",
+      "baseRepository": "BasilGuo/savax",
+      "baseRefName": "main",
+      "baseRefOid": "a6b27a662641f2c1b995def01592b341bdcf49ed",
+      "headRepository": "BasilGuo/savax",
+      "headRefName": "BasilGuo-v06",
+      "headRefOid": "7acf7c5cd30a51322c8ee7a6bb13e8d2c9aa757c",
+      "closedAt": "2024-05-27T01:08:55Z",
+      "mergedAt": "2024-05-27T01:08:55Z",
+      "mergedBy": "BasilGuo",
+      "mergeCommit": {
+        "oid": "45d0b8e13ccf096f41a4130c5eb40bb979f295b2"
+      },
       "comments": [],
       "reviews": []
     }
