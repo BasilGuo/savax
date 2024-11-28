@@ -13,7 +13,7 @@ date:
 consensus: true
 v: 3
 # area: AREA
-# workgroup: Network Working Group
+workgroup: Network Working Group
 
 coding: us-ascii
 pi:    # can use array (if all yes) or hash here
@@ -54,7 +54,7 @@ informative:
 
 --- abstract
 
-Because the Internet forwards packets according to the IP destination address, packet forwarding typically takes place without inspection of the source address and malicious attacks have been launched using spoofed source addresses. The inter-domain source address validation architecture is an effort to enhance the Internet by using state machines to generate consistent tags. When communicating between two end hosts at different ADs of the IPv6 network, tags will be added to the packets to identify the authenticity of the IPv6 source address.
+Due to the fact that the Internet forwards packets in accordance with the IP destination address, packet forwarding generally occurs without examination of the source address. As a result, malicious attacks have been initiated by utilizing spoofed source addresses. The inter-domain source address validation architecture represents an endeavor to enhance the Internet by employing state machines to generate consistent tags. When two end hosts at different address domains (ADs) of the IPv6 network communicate with each other, tags will be appended to the packets to identify the authenticity of the IPv6 source address.
 
 
 
@@ -62,11 +62,11 @@ Because the Internet forwards packets according to the IP destination address, p
 
 # Introduction
 
-The Inter-Domain Source Address Validation (SAVA-X) mechanism establishes a trust alliance among Address Domains (AD), maintains a one-to-one state machine among ADs with AD Control Server (ACS), generates a consistent tag, and deploys the tag to the ADs' border router (AER). The AER of the source AD adds a tag to identify the identity of the AD to the packet originating from one AD and sinking in another AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether it is a packet with a forged source address.
+The Inter-Domain Source Address Validation-eXternal (SAVA-X) mechanism serves to establish a trust alliance among Address Domains (AD). It maintains a one-to-one state machine among ADs in conjunction with the AD Control Server (ACS). Moreover, it generates a consistent tag and deploys this tag to the ADs' border router (AER). The AER of the source AD appends a tag to packets originating from one AD and destined for another AD, thereby identifying the identity of the AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether the packet has a forged source address.
 
-In the process of packet forwarding, if the source address and the destination address of this packet both belong to the trust alliance, but the tag is not added or incorrectly added, the AER of the destination AD determines that the source address is forged and directly discards this packet. The destination AD forwards the packet directly for packets whose source address is an address outside the trust alliance.
+In the packet forwarding process, if both the source address and the destination address of a packet belong to the trust alliance, the tag is either not added or added incorrectly. In such a case, the AER of the destination AD determines that the source address is forged and directly discards this packet. For packets with a source address outside the trust alliance, the destination AD forwards the packet directly.
 
-This document mainly studies the relevant specifications of the control plane of the inter-domain source address validation architecture mechanism between ADs, which will protect IPv6 networks from being forged source addresses. See {{RFC8200}} for more details about IPv6. It stipulates the design of the consortium blockchain, the nodes’ joining and exiting, the maintenance of trust alliance information based on the consortium blockchain, and the maintenance of the state machine. Its promotion and application can realize the standardization of the control plane in the SAVA-X to facilitate the related equipment developed by different manufacturers and organizations to cooperate to accomplish the inter-domain source address validation jointly.
+This document primarily focuses on researching the relevant specifications of the control plane of the SAVA-X between ADs. This will safeguard IPv6 networks from forged source addresses. For more detailed information about IPv6, refer to {{RFC8200}}. It stipulates the design of the consortium blockchain, the joining and exiting of nodes, the maintenance of trust alliance information based on the consortium blockchain, and the maintenance of the state machine. Its promotion and application can achieve the standardization of the control plane in the SAVA-X, facilitating the cooperation of related equipment developed by different manufacturers and organizations to jointly accomplish inter-domain source address validation.
 
 # Conventions and Definitions
 
@@ -82,7 +82,7 @@ ACS:
 : AD Control Server. The server maintains the state machine with other ACS and distributes information to AER.
 
 AD:
-: Address Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.
+: Address Domain or Administrative Domain. The unit of a trust alliance. It is an address set consisting of all IPv6 addresses corresponding to an IPv6 address prefix.
 
 ADID:
 : The identity of an AD.
