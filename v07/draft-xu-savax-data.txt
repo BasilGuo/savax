@@ -5,11 +5,11 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Standards Track                     Tsinghua University
-Expires: 28 November 2024                                         Y. Guo
+Expires: 1 June 2025                                              Y. Guo
                                                  Zhongguancun Laboratory
                                                                    J. Wu
                                                      Tsinghua University
-                                                             27 May 2024
+                                                        28 November 2024
 
 
  Data Plane of Source Address Validation Architecture-eXternal (SAVA-X)
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2024.
+   This Internet-Draft will expire on 1 June 2025.
 
 Copyright Notice
 
