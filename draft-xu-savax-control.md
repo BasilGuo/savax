@@ -34,7 +34,7 @@ author:
   email: wangxiaoliang0623@foxmail.com
 -
   name: Yangfei Guo
-  org: Zhongguancun Laboratory
+  org: Tsinghua University
   country: China
   email: guoyangfei@zgclab.edu.cn
 -
@@ -89,6 +89,7 @@ ADID:
 
 ADID_Rec:
 : The record of the number of an AD.
+
 AER:
 : AD border router, which is placed at the boundary of an AD of STA.
 
@@ -171,6 +172,7 @@ Address Domain Identity Record (ADID_Rec) is used to identify an address domain 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      ~              Address Domain Identity (ADID)                   ~
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+{: #fig-adid-rec title="Format of Address Domain Identity Record"}
 
 {: vspace="0"}
 
@@ -199,6 +201,7 @@ AD Registration Information Record (ARI_Rec) is the registration information rec
      |                         Effecting Time                        |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+{: #fig-ari-rec title="Format of AD Registration Information Record"}
 
 {: vspace="0"}
 
@@ -292,16 +295,16 @@ Assuming that the maximum time difference between AER and ACS is `te`, we set a 
 In addition to the time difference, we should also take into account the packet transmission delay in the network. Set the minimum delay to `td_min` and the maximum delay to `td_max`. The expiration of `Tag_n` should be extended to `td_max` later, and the beginning of `Tag_(n+1)` validity period should be delayed to `td_min` later. The shared time slice and tag validity period corrected according to transmission delay is shown as follows, see {{figure2}}.
 
 ~~~~~
-+----------------------+
-|      Tag_(n-1)       |
-+----------------------+
-                     +----------------------+
-                     |        Tag_n         |
-                     +----------------------+
-                     | |
-                     | |
----------------------|-|------------------------------> Time Line
-                     2te-td_min+td_max
+    +----------------------+
+    |      Tag_(n-1)       |
+    +----------------------+
+                         +----------------------+
+                         |        Tag_n         |
+                         +----------------------+
+                         | |
+                         | |
+    ---------------------|-|------------------------------> Time Line
+                         2te-td_min+td_max
 ~~~~~
 {: #figure2 title="Validity period of tag with the shared time slice after modified"}
 
