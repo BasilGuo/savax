@@ -43,7 +43,7 @@ author:
   email: wangxiaoliang0623@foxmail.com
 -
   name: Yangfei Guo
-  org: Zhongguancun Laboratory
+  org: Tsinghua University
   country: China
   email: guoyangfei@zgclab.edu.cn
 
