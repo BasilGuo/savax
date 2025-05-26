@@ -4,12 +4,10 @@
 
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
-Intended status: Standards Track                     Tsinghua University
-Expires: 1 June 2025                                              Y. Guo
-                                                 Zhongguancun Laboratory
-                                                                   J. Wu
+Intended status: Standards Track                                  Y. Guo
+Expires: 27 November 2025                                          J. Wu
                                                      Tsinghua University
-                                                        28 November 2024
+                                                             26 May 2025
 
 
 Control Plane of Source Address Validation Architecture-eXternal (SAVA-
@@ -44,11 +42,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2025.
+   This Internet-Draft will expire on 27 November 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -141,9 +139,9 @@ Table of Contents
       The identity of an AD.
 
    ADID_Rec:
-      The record of the number of an AD.  AER:
+      The record of the number of an AD.
 
-  
+   AER:
       AD border router, which is placed at the boundary of an AD of STA.
 
    API_Rec:
@@ -349,6 +347,8 @@ Table of Contents
     ~              Address Domain Identity (ADID)                   ~
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
+             Figure 1: Format of Address Domain Identity Record
+
    ADID Type:
       8-bit Type of ADID, 1 for 16-bit AS number, 2 for 32-bit AS
       number, 3 for 32-bit AD number, and other unassigned.
@@ -382,6 +382,8 @@ Table of Contents
     |                         Effecting Time                        |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+           Figure 2: Format of AD Registration Information Record
 
    Action:
       8-bit instruction to add (ADD=1) or delete (DEL=2) this record.
@@ -448,7 +450,7 @@ Table of Contents
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-              Figure 1: Format of AD Prefix Information Record
+              Figure 3: Format of AD Prefix Information Record
 
    Action:
       8-bit instruction to add (ADD=1) or delete (DEL=2) this record.
@@ -499,7 +501,7 @@ Table of Contents
    we set a shared time slice with a length of 2te between two adjacent
    tags.  In this shared time slice, the two tags before and after are
    valid.  The validity period of the tag with the shared time slice is
-   shown below, see Figure 2.
+   shown below, see Figure 4.
 
        +----------------------+
        |      Tag_(n-1)       |
@@ -513,7 +515,7 @@ Table of Contents
        --------------------|--|------------------------------> Time Line
                            2te
 
-       Figure 2: Validity period of tag with the shared time slice
+       Figure 4: Validity period of tag with the shared time slice
 
    In addition to the time difference, we should also take into account
    the packet transmission delay in the network.  Set the minimum delay
@@ -521,20 +523,20 @@ Table of Contents
    should be extended to td_max later, and the beginning of Tag_(n+1)
    validity period should be delayed to td_min later.  The shared time
    slice and tag validity period corrected according to transmission
-   delay is shown as follows, see Figure 3.
+   delay is shown as follows, see Figure 5.
 
-   +----------------------+
-   |      Tag_(n-1)       |
-   +----------------------+
-                        +----------------------+
-                        |        Tag_n         |
-                        +----------------------+
-                        | |
-                        | |
-   ---------------------|-|------------------------------> Time Line
-                        2te-td_min+td_max
+       +----------------------+
+       |      Tag_(n-1)       |
+       +----------------------+
+                            +----------------------+
+                            |        Tag_n         |
+                            +----------------------+
+                            | |
+                            | |
+       ---------------------|-|------------------------------> Time Line
+                            2te-td_min+td_max
 
-     Figure 3: Validity period of tag with the shared time slice after
+     Figure 5: Validity period of tag with the shared time slice after
                                   modified
 
    The expiration of the Tag_n is extended to te+td_max, and the
@@ -598,7 +600,7 @@ Authors' Addresses
 
 
    Yangfei Guo
-   Zhongguancun Laboratory
+   Tsinghua University
    China
    Email: guoyangfei@zgclab.edu.cn
 

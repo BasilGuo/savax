@@ -5,10 +5,9 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                     J. Wu
 Intended status: Standards Track                                 X. Wang
-Expires: 1 June 2025                                 Tsinghua University
-                                                                  Y. Guo
-                                                 Zhongguancun Laboratory
-                                                        28 November 2024
+Expires: 27 November 2025                                         Y. Guo
+                                                     Tsinghua University
+                                                             26 May 2025
 
 
   Communication Protocol Between the AD Control Server and the AD Edge
@@ -46,11 +45,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2025.
+   This Internet-Draft will expire on 27 November 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1810,6 +1809,6 @@ Authors' Addresses
 
 
    Yangfei Guo
-   Zhongguancun Laboratory
+   Tsinghua University
    China
    Email: guoyangfei@zgclab.edu.cn
