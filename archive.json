@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:39:17.440410+00:00",
+  "timestamp": "2025-05-29T01:10:54.223421+00:00",
   "repo": "BasilGuo/savax",
   "labels": [
     {
@@ -157,6 +157,34 @@
       "mergedBy": "BasilGuo",
       "mergeCommit": {
         "oid": "736ea452ca60d30abae2f4370263ae6ec661e9b5"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOKHsHks6Xt-xQ",
+      "title": "update: .github workflow",
+      "url": "https://github.com/BasilGuo/savax/pull/5",
+      "state": "MERGED",
+      "author": "BasilGuo",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-27T06:20:48Z",
+      "updatedAt": "2025-05-27T06:22:05Z",
+      "baseRepository": "BasilGuo/savax",
+      "baseRefName": "main",
+      "baseRefOid": "736ea452ca60d30abae2f4370263ae6ec661e9b5",
+      "headRepository": "BasilGuo/savax",
+      "headRefName": "draft-xu-savax-control-09",
+      "headRefOid": "274878ddcfd7c1dd3e7e482834fb34140e904f13",
+      "closedAt": "2025-05-27T06:22:02Z",
+      "mergedAt": "2025-05-27T06:22:02Z",
+      "mergedBy": "BasilGuo",
+      "mergeCommit": {
+        "oid": "59e05899d8a7076fd1e86024c1a84913b7db3294"
       },
       "comments": [],
       "reviews": []
