@@ -10,24 +10,24 @@
 <meta content="Yangfei Guo" name="author">
 <meta content="Jianping Wu" name="author">
 <meta content="
-       Due to the fact that the Internet forwards packets in accordance with the IP destination address, packet forwarding generally occurs without examination of the source address. As a result, malicious attacks have been initiated by utilizing spoofed source addresses. The inter-domain source address validation architecture represents an endeavor to enhance the Internet by employing state machines to generate consistent tags. When two end hosts at different address domains (ADs) of the IPv6 network communicate with each other, tags will be appended to the packets to identify the authenticity of the IPv6 source address. 
+       Because the Internet forwards packets according to the IP destination address, packet forwarding generally occurs without examining the source address. Consequently, malicious attacks have been launched using spoofed source addresses. The inter-domain source address validation architecture represents an effort to enhance the Internet by employing state machines to generate consistent tags. When two end hosts in different address domains (ADs) of an IPv6 network communicate with each other, tags are appended to the packets to identify the authenticity of the IPv6 source address. 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="draft-xu-savax-control-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
-    ConfigArgParse 1.7
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.10.1
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.0
-    platformdirs 4.3.8
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.14.7
     pycountry 24.6.1
-    PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
-    wcwidth 0.2.13
+    PyYAML 6.0.3
+    requests 2.33.1
+    wcwidth 0.9.4
 -->
 <link href="draft-xu-savax-control.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -63,7 +63,6 @@
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -112,7 +111,6 @@
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -168,7 +166,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -176,7 +174,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -293,16 +291,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -322,10 +323,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -336,59 +337,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -426,26 +427,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -461,20 +461,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -510,9 +512,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -522,17 +524,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -568,6 +572,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -581,25 +586,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -619,13 +616,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -636,18 +626,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -706,9 +694,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -798,23 +786,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -825,19 +817,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -858,54 +852,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -924,26 +918,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -959,12 +953,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1026,17 +1021,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill], [fill] *)) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1046,11 +1043,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">savax-control</td>
-<td class="right">May 2025</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 28 November 2025</td>
+<td class="center">Expires 27 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1060,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-xu-savax-control-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-27" class="published">27 May 2025</time>
+<time datetime="2026-11-23" class="published">23 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-28">28 November 2025</time></dd>
+<dd class="expires"><time datetime="2027-05-27">27 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1093,7 +1090,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Control Plane of Source Address Validation Architecture-eXternal (SAVA-X)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Due to the fact that the Internet forwards packets in accordance with the IP destination address, packet forwarding generally occurs without examination of the source address. As a result, malicious attacks have been initiated by utilizing spoofed source addresses. The inter-domain source address validation architecture represents an endeavor to enhance the Internet by employing state machines to generate consistent tags. When two end hosts at different address domains (ADs) of the IPv6 network communicate with each other, tags will be appended to the packets to identify the authenticity of the IPv6 source address.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Because the Internet forwards packets according to the IP destination address, packet forwarding generally occurs without examining the source address. Consequently, malicious attacks have been launched using spoofed source addresses. The inter-domain source address validation architecture represents an effort to enhance the Internet by employing state machines to generate consistent tags. When two end hosts in different address domains (ADs) of an IPv6 network communicate with each other, tags are appended to the packets to identify the authenticity of the IPv6 source address.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1114,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1123,7 +1120,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1217,9 +1214,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Inter-Domain Source Address Validation-eXternal (SAVA-X) mechanism serves to establish a trust alliance among Address Domains (AD). It maintains a one-to-one state machine among ADs in conjunction with the AD Control Server (ACS). Moreover, it generates a consistent tag and deploys this tag to the ADs' border router (AER). The AER of the source AD appends a tag to packets originating from one AD and destined for another AD, thereby identifying the identity of the AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether the packet has a forged source address.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">In the packet forwarding process, if both the source address and the destination address of a packet belong to the trust alliance, the tag is either not added or added incorrectly. In such a case, the AER of the destination AD determines that the source address is forged and directly discards this packet. For packets with a source address outside the trust alliance, the destination AD forwards the packet directly.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This document primarily focuses on researching the relevant specifications of the control plane of the SAVA-X between ADs. This will safeguard IPv6 networks from forged source addresses. For more detailed information about IPv6, refer to <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>. It stipulates the design of the consortium blockchain, the joining and exiting of nodes, the maintenance of trust alliance information based on the consortium blockchain, and the maintenance of the state machine. Its promotion and application can achieve the standardization of the control plane in the SAVA-X, facilitating the cooperation of related equipment developed by different manufacturers and organizations to jointly accomplish inter-domain source address validation.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-1">The Inter-Domain Source Address Validation-eXternal (SAVA-X) mechanism serves to establish a trust alliance among Address Domains (ADs). It maintains a one-to-one state machine among ADs in conjunction with the AD Control Server (ACS). Moreover, it generates a consistent tag and deploys this tag to the border router (AER) of each AD. The AER of the source AD appends a tag to packets originating from one AD and destined for another AD, thereby identifying the identity of the AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether the packet carries a forged source address.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">During packet forwarding, if both the source address and the destination address of a packet belong to the trust alliance but the tag is either absent or incorrect, the AER of the destination AD determines that the source address is forged and directly discards the packet. For packets whose source address lies outside the trust alliance, the destination AD forwards the packet directly.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document primarily focuses on the relevant specifications of the control plane of SAVA-X between ADs, which will safeguard IPv6 networks from forged source addresses. For more detailed information about IPv6, refer to <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>. It specifies the design of the consortium blockchain, the joining and exiting of nodes, the maintenance of trust alliance information based on the consortium blockchain, and the maintenance of the state machine. Its promotion and application can achieve standardization of the control plane in SAVA-X, facilitating cooperation among related equipment developed by different manufacturers and organizations to jointly accomplish inter-domain source address validation.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1313,14 +1310,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-the-design-of-the-consortiu">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-design-of-the-consortiu" class="section-name selfRef">The design of the Consortium Blockchain</a>
       </h2>
-<p id="section-3-1">As discussed in the introduction, consortium blockchain will be used in the SAVA-X mechanism.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">As discussed in the introduction, a consortium blockchain will be used in the SAVA-X mechanism.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="trust-alliance">
 <section id="section-3.1">
         <h3 id="name-trust-alliance">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-trust-alliance" class="section-name selfRef">Trust Alliance</a>
         </h3>
-<p id="section-3.1-1">Trust Alliance (TA) is a hierarchical structure. Address domains (AD) are assigned into different sub-trust alliances (STA) according to geographic location, economic relationship, political relationship, social relationship, and military relationship. AD is the minimum unit for trust. The one-to-one maintenance state machine between ADs located in the same layer of sub-trust alliance generates consistent tags and deploys the tags to their AERs. The ADs in each sub-trust alliance elect a master AD node. The master AD node represents the sub-trust alliance and maintains the alliance-level state machine with other master AD nodes to generate alliance-level tags. When communicating across sub-trust alliances, it is necessary to achieve the feature of tag replacement.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">The AD in the SAVA-X must be located in a specific sub-trust alliance. According to its position in the SAVA-X, AD can be divided into three roles: primary address domain, boundary address domain, and ordinary address domain which is neither primary nor boundary address domain.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The Trust Alliance (TA) is a hierarchical structure. Address Domains (ADs) are assigned to different sub-trust alliances (STAs) according to geographic location, economic relationship, political relationship, social relationship, and military relationship. An AD is the minimum unit for trust. The one-to-one maintained state machine between ADs located in the same layer of a sub-trust alliance generates consistent tags and deploys the tags to their AERs. The ADs in each sub-trust alliance elect a master AD node. The master AD node represents the sub-trust alliance and maintains the alliance-level state machine with other master AD nodes to generate alliance-level tags. When communicating across sub-trust alliances, the feature of tag replacement must be achieved.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">An AD in SAVA-X must be located in a specific sub-trust alliance. According to its position in SAVA-X, an AD can be divided into three roles: primary address domain, boundary address domain, and ordinary address domain, which is neither a primary nor a boundary address domain.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-3.1">
             <p id="section-3.1-3.1.1">The primary address domain is the representative node of the aforementioned sub-trust alliance and is used to establish a connection with the primary address domain of other sub-trust alliances. In this way, the relationship between trust alliances finally forms a tree-like relationship, and there will be no direct relationship between address domains under the same branch.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
@@ -1332,8 +1329,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
             <p id="section-3.1-3.3.1">The ordinary address domain is neither the primary address domain nor the address domain of the boundary address domain.<a href="#section-3.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.1-4">Due to the uncontrollable packet forwarding path, in SAVA-X, a virtual address domain needs to be set up as a non-boundary AD to communicate with the sub-trust alliance outside or receive packets sent from outside the sub-trust alliance to maintain the state machine. The virtual AD is recorded as AD_V (Virtual Address Domain). When a packet from an AD in a sub-trust alliance needs to be sent outside the sub-trust alliance, but there are multiple paths to the destination AD in the sub-trust alliance, the sub-trust alliance may have multiple boundary ADs to reach the destination AD. The sub-trust alliance does not know which boundary AD will be selected during the packet forwarding. Therefore, the primary function of AD_V is to prevent this by specifying the specific tag that should be added to the packet sent to the external address domain of the sub-trust alliance.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">What's more, the tag needs to be verified by the boundary address domain of the sub-trust alliance. Therefore, the boundary AD also needs to receive the tags maintained by the AD and AD_V in the trust alliance. As a tag for communicating data between the non-primary address domain and the external address domain of the sub-trust alliance.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">Due to the uncontrollable packet forwarding path, in SAVA-X a virtual address domain needs to be set up as a non-boundary AD to communicate with sub-trust alliances outside or receive packets sent from outside the sub-trust alliance to maintain the state machine. The virtual AD is recorded as AD_V (Virtual Address Domain). When a packet from an AD in a sub-trust alliance needs to be sent outside the sub-trust alliance, but there are multiple paths to the destination AD in the sub-trust alliance, the sub-trust alliance may have multiple boundary ADs to reach the destination AD. The sub-trust alliance does not know which boundary AD will be selected during packet forwarding. Therefore, the primary function of AD_V is to prevent this by specifying the specific tag that should be appended to packets sent to the external address domain of the sub-trust alliance.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">What is more, the tag needs to be verified by the boundary address domain of the sub-trust alliance. Therefore, the boundary AD also needs to receive the tags maintained by the AD and AD_V in the trust alliance as the tag for communicating data between the non-primary address domain and the external address domain of the sub-trust alliance.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="consortium-blockchain">
@@ -1341,8 +1338,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-consortium-blockchain">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-consortium-blockchain" class="section-name selfRef">Consortium Blockchain</a>
         </h3>
-<p id="section-3.2-1">To simplify the control plane's design and avoid the single-point failure to subvert the SAVA-X, we design the SAVA-X with a decentralized infrastructure that will store the information of the trust alliance.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">The consortium blockchain is composed of the trust alliance management committee chain and several sub-chains. Among them, the management committee chain is composed of several nodes to manage the administrator nodes of each sub-chain. The consortium blockchain records information of the sub-trust alliance administrator node, named STA-admin (Sub Trust Alliance administrator), and the member list of each sub-chain which is packaged and submitted by the STA-admin. Each sub-trust alliance has one STA-admin that is assumed by a specific elected AD in the sub-trust alliance. The AD in the same sub-trust alliance forms a private chain to maintain the information of the members of the sub-trust alliance jointly. The STA-admin in each sub-trust alliance is responsible for managing the joining and exiting of the sub-trust alliance node. The STA-admin of each sub-trust alliance maintains the relationship of the members in each sub-trust alliance through the trust alliance management committee chain.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">To simplify the control plane's design and avoid a single point of failure that could subvert SAVA-X, we design SAVA-X with a decentralized infrastructure that will store the information of the trust alliance.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The consortium blockchain is composed of the trust alliance management committee chain and several sub-chains. Among them, the management committee chain is composed of several nodes to manage the administrator nodes of each sub-chain. The consortium blockchain records information of the sub-trust alliance administrator node, named STA-admin (Sub-Trust Alliance administrator), and the member list of each sub-chain, which is packaged and submitted by the STA-admin. Each sub-trust alliance has one STA-admin that is assumed by a specific elected AD in the sub-trust alliance. The ADs in the same sub-trust alliance form a private chain to maintain the information of the members of the sub-trust alliance jointly. The STA-admin in each sub-trust alliance is responsible for managing the joining and exiting of the sub-trust alliance nodes. The STA-admin of each sub-trust alliance maintains the relationship of the members in each sub-trust alliance through the trust alliance management committee chain.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="joining-and-exiting">
@@ -1355,9 +1352,9 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <h4 id="name-node-joining">
 <a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-node-joining" class="section-name selfRef">Node Joining</a>
           </h4>
-<p id="section-3.3.1-1">This is the admission of joining the sub-trust alliance member AD. The prerequisite for the AD to join the sub-trust alliance is to have a certificate issued by the STA-admin first. AD's Address Control Server (ACS), which will maintain the state machine with other ACS and distribute alliance information and other information to AER, submits a Certificate Signing Request file to the STA-admin of the sub-trust alliance that it wants to join to request the certificate. The CSR file includes ADID, ACS address information, IPv6 address prefix information, and its public key information. If the file is valid, STA-admin verifies the file, generates a node certificate, packages the AD's information into a block, and updates the list of members of the sub-consortium. STA-admin submits the latest block to the consortium blockchain, and the consortium blockchain updates the list of alliance members of the entire trust alliance.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.1-2">When a sub-trust alliance wants to join the trust alliance, STA-admin submits a CSR file to the consortium blockchain, including the member information list in the sub-chain and the information of the STA-admin. It requires offline negotiation and cooperation to apply for joining the consortium blockchain. The consortium blockchain management committee verifies the validity of the request, issues administrator certificates, and updates block information. The STA-admins in the current trust alliance jointly maintain a management committee chain, manage the administrator certificates of each sub-trust alliance, and use the certificates for encrypted communication. STA-admin submits the list of members of the sub-trust alliance to the consortium blockchain and joins the entire trust alliance.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.3.1-3">After a node joins the consortium blockchain, there is an Effecting Time and an Expiration Time in the CSR file. STA-admin will assign the sub-trust alliance member with an ADID number if it does not contain the ADID information in the submitted information. The consortium blockchain will give the permitted sub-trust alliance a sub-trust alliance number if the information submitted by the sub-trust alliance does not have the sub-trust alliance number. If there is a conflict between the submitted information and the returned information, the returned ADID or sub-trust alliance number will be selected.<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-1">This is the admission of joining the sub-trust alliance member AD. The prerequisite for an AD to join the sub-trust alliance is to first have a certificate issued by the STA-admin. The AD's Address Control Server (ACS), which will maintain the state machine with other ACSes and distribute alliance information and other information to AERs, submits a Certificate Signing Request file to the STA-admin of the sub-trust alliance that it wants to join to request the certificate. The CSR file includes ADID, ACS address information, IPv6 address prefix information, and its public key information. If the file is valid, STA-admin verifies the file, generates a node certificate, packages the AD's information into a block, and updates the list of members of the sub-consortium. STA-admin submits the latest block to the consortium blockchain, and the consortium blockchain updates the list of alliance members of the entire trust alliance.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2">When a sub-trust alliance wants to join the trust alliance, STA-admin submits a CSR file to the consortium blockchain, including the member information list in the sub-chain and the information of the STA-admin. Offline negotiation and cooperation are required to apply for joining the consortium blockchain. The consortium blockchain management committee verifies the validity of the request, issues administrator certificates, and updates block information. The STA-admins in the current trust alliance jointly maintain a management committee chain, manage the administrator certificates of each sub-trust alliance, and use the certificates for encrypted communication. STA-admin submits the list of members of the sub-trust alliance to the consortium blockchain and joins the entire trust alliance.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-3">After a node joins the consortium blockchain, there is an Effecting Time and an Expiration Time in the CSR file. STA-admin will assign the sub-trust alliance member an ADID number if the submitted information does not contain ADID information. The consortium blockchain will give the permitted sub-trust alliance a sub-trust alliance number if the information submitted by the sub-trust alliance does not have a sub-trust alliance number. If there is a conflict between the submitted information and the returned information, the returned ADID or sub-trust alliance number will be selected.<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="node-exiting">
@@ -1365,7 +1362,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <h4 id="name-node-exiting">
 <a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-node-exiting" class="section-name selfRef">Node Exiting</a>
           </h4>
-<p id="section-3.3.2-1">The member node needs to submit the CSR file again to delete its relevant information. Its STA-admin decides whether to allow it to exit or not. After passing the validation, nodes of the sub-blockchain delete the relevant member information. It also needs to submit a CSR file for the exit of the sub-trust alliance node, which the alliance management committee decides whether to allow it. After validating the receiving exit request, other sub-trust alliance administrator nodes need to delete their maintenance-related sub-alliance node information.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-1">The member node needs to submit the CSR file again to delete its relevant information. Its STA-admin decides whether to allow it to exit or not. After passing the validation, the nodes of the sub-blockchain delete the relevant member information. It also needs to submit a CSR file for the exit of the sub-trust alliance node, which the alliance management committee decides whether to allow. After validating the received exit request, other sub-trust alliance administrator nodes need to delete their maintained related sub-alliance node information.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1377,8 +1374,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-alliance-information-and-st">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-alliance-information-and-st" class="section-name selfRef">Alliance Information and State Machine Maintenance based on the Consortium Blockchain</a>
       </h2>
-<p id="section-4-1">On the AER of the destination AD, to validate the tag, it is first necessary to find out the sub-trust alliance number from the source address of the arriving packet and find its corresponding source Address Domain Identity (ADID) number. Then find the currently valid tag according to the ADID number. The generation of the tag requires the maintenance of the state machine between the ACSes. In SAVA-X, member ADs need to inform each other of their sub-trust alliance number, ADID number, AD role, ACS address, and IPv6 address prefix. The members interact with each other with the state machine information according to the hierarchical division structure after obtaining the basic information of the other members. And use the tags generated by the state machine during the packet forwarding after the specified time to add and validate the tags.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">The relevant information needs to be stored in the sub-chains, where the node is located after joining the consortium blockchain. The information stored on the consortium blockchain needs the content specified in the following three message formats, namely ADID_Rec, ARI_Rec, and API_Rec. We give the packet format required by SAVA-X in the control plane as follows.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-1">On the AER of the destination AD, to validate the tag, it is first necessary to find out the sub-trust alliance number from the source address of the arriving packet and find its corresponding source Address Domain Identity (ADID) number. Then find the currently valid tag according to the ADID number. The generation of the tag requires the maintenance of the state machine between the ACSes. In SAVA-X, member ADs need to inform each other of their sub-trust alliance number, ADID number, AD role, ACS address, and IPv6 address prefix. The members interact with each other with the state machine information according to the hierarchical division structure after obtaining the basic information of the other members, and use the tags generated by the state machine during packet forwarding after the specified time to append and validate the tags.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">The relevant information needs to be stored in the sub-chains where the node is located after joining the consortium blockchain. The information stored on the consortium blockchain needs the content specified in the following three message formats, namely ADID_Rec, ARI_Rec, and API_Rec. We give the packet format required by SAVA-X in the control plane as follows.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="address-domain-identity-record">
 <section id="section-4.1">
         <h3 id="name-address-domain-identity-rec">
@@ -1474,7 +1471,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-4.2-4">The role of the address domain is essential, and each address domain needs to be assigned a corresponding role according to its position in the sub-trust alliance. A sub-trust alliance needs to set one (and only one) primary address domain. It serves as the representative of the sub-trust alliance. The tag generated by its ACS and the ACSes of other sub-trust alliances' primary address domain maintains the state machine to generate the tag of the sub-trust alliance, and it issues the tag to the boundary address domain of the sub-trust alliance. A specific recommendation of a consensus algorithm could generate the primary address domain or be directly specified by the operator of the address domain with offline negotiation. The boundary address domain means that packets forwarded outside the address domain are no longer in the current sub-trust alliance. The primary address domain can be a boundary address domain or not. The tag replacement may occur in the boundary address domain. The ordinary address domain is neither a primary address domain nor a boundary address domain.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">The role of the address domain is essential, and each address domain needs to be assigned a corresponding role according to its position in the sub-trust alliance. A sub-trust alliance needs to set one (and only one) primary address domain. It serves as the representative of the sub-trust alliance. The tag generated by its ACS and the ACSes of other sub-trust alliances' primary address domains maintains the state machine to generate the tag of the sub-trust alliance, and it issues the tag to the boundary address domain of the sub-trust alliance. A specific recommendation of a consensus algorithm could generate the primary address domain or be directly specified by the operator of the address domain with offline negotiation. The boundary address domain means that packets forwarded outside the address domain are no longer in the current sub-trust alliance. The primary address domain can be a boundary address domain or not. Tag replacement may occur in the boundary address domain. The ordinary address domain is neither a primary address domain nor a boundary address domain.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ad-prefix-information-record">
@@ -1552,9 +1549,9 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-time-synchronization">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-time-synchronization" class="section-name selfRef">Time Synchronization</a>
       </h2>
-<p id="section-5-1">Due to the time error between the border routers of the member ADs, to ensure the correct operation of the tag validation, it is necessary to make each device including ACS and AER in the trust alliance calibrate to the same clock reference. The NTP protocol could achieve this goal. You could see <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> for more details.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">Due to the time error between the border routers of the member ADs, to ensure the correct operation of tag validation, it is necessary to make each device, including ACSes and AERs, in the trust alliance calibrate to the same clock reference. The NTP protocol could achieve this goal. You could see <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> for more details.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Although the NTP protocol can guarantee the time synchronization between AERs, there may inevitably still be a slight time difference between AERs and ACSes. Therefore, each AER sets a shared time slice. With this time slice, both the expired tag and the new tag are considered valid. That is, more than one tag is valid for a while. The destination AD needs to validate all valid tags belonging to a specific source AD. The tag is correct if one of the tags is validated.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">Assuming that the maximum time difference between AER and ACS is <code>te</code>, we set a shared time slice with a length of <code>2te</code> between two adjacent tags. In this shared time slice, the two tags before and after are valid. The validity period of the tag with the shared time slice is shown below, see <a href="#figure1" class="auto internal xref">Figure 4</a>.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-3">Assuming that the maximum time difference between an AER and an ACS is te, we set a shared time slice with a length of 2te between two adjacent tags. In this shared time slice, the two tags before and after are valid. The validity period of the tag with the shared time slice is shown below, see <a href="#figure1" class="auto internal xref">Figure 4</a>.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <span id="name-validity-period-of-tag-with"></span><div id="figure1">
 <figure id="figure-4">
         <div class="alignLeft art-text artwork" id="section-5-4.1">
