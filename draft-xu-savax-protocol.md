@@ -60,20 +60,19 @@ normative:
 
 --- abstract
 
+Because the Internet forwards packets in accordance with the IP destination address, packet forwarding generally occurs without examination of the source address. As a result, malicious attacks have been launched using spoofed source addresses. The inter-domain source address validation architecture represents an effort to enhance the Internet by employing state machines to generate consistent tags. When two end hosts in different address domains (ADs) of an IPv6 network communicate with each other, tags are appended to the packets to identify the authenticity of the IPv6 source address.
 
-Due to the fact that the Internet forwards packets in accordance with the IP destination address, packet forwarding generally occurs without examination of the source address. As a result, malicious attacks have been initiated by utilizing spoofed source addresses. The inter-domain source address validation architecture represents an endeavor to enhance the Internet by employing state machines to generate consistent tags. When two end hosts at different address domains (ADs) of the IPv6 network communicate with each other, tags will be appended to the packets to identify the authenticity of the IPv6 source address.
-
-This memo focuses on the communication protocol between ACSs and AERs of the SAVA-X mechanism.
+This memo focuses on the communication protocol between ACSes and AERs of the SAVA-X mechanism.
 
 --- middle
 
 # Introduction
 
-The Inter-Domain Source Address Validation-eXternal (SAVA-X) mechanism serves to establish a trust alliance among Address Domains (AD). It maintains a one-to-one state machine among ADs in conjunction with the AD Control Server (ACS). Moreover, it generates a consistent tag and deploys this tag to the ADs' border router (AER). The AER of the source AD appends a tag to packets originating from one AD and destined for another AD, thereby identifying the identity of the AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether the packet has a forged source address.
+The Inter-Domain Source Address Validation-eXternal (SAVA-X) mechanism serves to establish a trust alliance among Address Domains (ADs). It maintains a one-to-one state machine among ADs in conjunction with the AD Control Server (ACS). Moreover, it generates a consistent tag and deploys this tag to the border router (AER) of each AD. The AER of the source AD appends a tag to packets originating from one AD and destined for another AD, thereby identifying the identity of the AD. The AER of the destination AD verifies the source address by validating the correctness of the tag to determine whether the packet carries a forged source address.
 
-In the packet forwarding process, if both the source address and the destination address of a packet belong to the trust alliance, the tag is either not added or added incorrectly. In such a case, the AER of the destination AD determines that the source address is forged and directly discards this packet. For packets with a source address outside the trust alliance, the destination AD forwards the packet directly.
+During packet forwarding, if both the source address and the destination address of a packet belong to the trust alliance but the tag is either absent or incorrect, the AER of the destination AD determines that the source address is forged and directly discards the packet. For packets whose source address lies outside the trust alliance, the destination AD forwards the packet directly.
 
-This document mainly studies the relevant specifications of the communication protocol between ACSs and AERs of the SAVA-X mechanism between ADs, which will protect IPv6 networks from being forged source addresses. See {{RFC8200}} for more details about IPv6. It includes both ACS-to-ACS communication specification and ACS-to-AER communication specification.
+This document mainly studies the relevant specifications of the communication protocol between ACSes and AERs of the SAVA-X mechanism between ADs, which will protect IPv6 networks from forged source addresses. See {{RFC8200}} for more details about IPv6. It includes both the ACS-to-ACS communication specification and the ACS-to-AER communication specification.
 
 # Conventions and Definitions
 
@@ -120,7 +119,7 @@ Tag:
 
 # Communication Protocol Format {#pkt-format}
 
-Every AD should be placed at least one ACS, which is mainly responsible for maintaining the relationship between ADs of the trust alliance, establishing connections with other ACS, maintaining the synchronous state machine, and sending the generated tags to the AER. TCP is used for communicating between ACS-ACS and ACS-AER.
+Every AD should have at least one ACS, which is mainly responsible for maintaining the relationship between ADs of the trust alliance, establishing connections with other ACSes, maintaining the synchronized state machine, and sending the generated tags to the AER. TCP is used for communication between ACS-ACS and ACS-AER.
 
 ~~~~~
  0                   1                   2                   3
@@ -204,11 +203,11 @@ When the S Type is NAK, ANAK, or RNAK, the Data field SHOULD be one 32-bit error
 
 # ACS-ACS Communication Protocol
 
-Since the blockchain is adopted in SAVA-X to maintain the information of the trust alliance, ACS can query the address domain information of relevant ADes of the trust alliance and the AD prefix information corresponding to the address domain from the blockchain.
+Since the blockchain is adopted in SAVA-X to maintain the information of the trust alliance, an ACS can query the address domain information of relevant ADs of the trust alliance and the AD prefix information corresponding to the address domain from the blockchain.
 
 ## Announcement, Query, and Response of State Machine Information
 
-State machine information record (SMI_Rec) represents the packet format used when a state machine is negotiated between different ordered pairs of ADs. When an ordered pair of ADs is negotiating the state machine, the ACS of AD with a smaller ADID initiates the  communication, and the ACS of AD with a larger ADID uses SMI_Rec to determine the information to be used, such as initial state, tag generation algorithm, state transition interval, etc. Compared to ARI_Rec and API_Rec, SMI_Rec also needs an Expiring Time in addition to the Effecting Time. Expiration Time stands when the negotiated state machine is no longer valid.
+State machine information record (SMI_Rec) represents the packet format used when a state machine is negotiated between different ordered pairs of ADs. When an ordered pair of ADs is negotiating the state machine, the ACS of the AD with the smaller ADID initiates the communication, and the ACS of the AD with the larger ADID uses SMI_Rec to determine the information to be used, such as the initial state, tag generation algorithm, state transition interval, etc. Compared to ARI_Rec and API_Rec, SMI_Rec also needs an Expiring Time in addition to the Effecting Time. Expiring Time indicates when the negotiated state machine is no longer valid.
 
 ~~~~~
  0                   1                   2                   3
@@ -286,9 +285,9 @@ State machine information announcement (SM_INFO-Announce) is sent from source AC
 |Acknowledgement Number |0|
 | Data |One or more SMI_Recs.|
 
-All SMI_Recs in the Data field should have a unique SM_ID. When Action  is ADD and SM_ID bigger than the current used SM_ID, ACS should add the  state machine defined in SMI_Rec. When Action is ADD and SM_ID equals  to current used SM_ID, ACS should modify the state machine defined in  SMI_Rec. Only the Transition Interval and Expiring Time can be modified.  Other SMI_Rec should be discarded and the destination ACS should send a  NAK message to the source ACS.
+All SMI_Recs in the Data field should have a unique SM_ID. When Action is ADD and SM_ID is bigger than the current used SM_ID, the ACS should add the state machine defined in SMI_Rec. When Action is ADD and SM_ID equals the current used SM_ID, the ACS should modify the state machine defined in SMI_Rec. Only the Transition Interval and Expiring Time can be modified. Other SMI_Recs should be discarded and the destination ACS should send a NAK message to the source ACS.
 
-When receiving a non-RENEW packet, if it cannot resolve this message,  the destination ACS should send a NAK message to the source ACS. When  destination ACS can resolve the packet correctly, it SHOULD:
+When receiving a non-RENEW packet, if it cannot resolve this message, the destination ACS should send a NAK message to the source ACS. When the destination ACS can resolve the packet correctly, it SHOULD:
 
 1. Compare the Transaction Number in this packet with the Transaction  Number received from the same ACS before. Otherwise, the destination ACS  would discard this packet and send an SM_INFO-Request to request the  latest information of the state machine. SM_INFO-Request is defined at  {{SM_INFO-Request}}. If bigger, destination ACS WOULD:
 2. Accept every SMI_Rec and process them as follows:
@@ -339,11 +338,11 @@ State machine information request (SM_INFO-Request) is sent from the source ACS 
 |Acknowledgement Number |0|
 | Data |None|
 
-When the source ACS receives an SM_INFO-Request message, it sends an SM_INFO-RNAK message to the destination ACS if some fields are wrong. Otherwise, the source ACS would send an SM_INFO-RACK message to the destination ACS and process this SM_INFO-Request message. Source ACS should compare the Transaction Number in this message with the Transaction Number received from the same destination ACS before. Otherwise, the source ACS would discard this packet. If bigger, the source ACS would send an SM_INFO-RACK message to the destination ACS.
+When the source ACS receives an SM_INFO-Request message, it sends an SM_INFO-RNAK message to the destination ACS if some fields are wrong. Otherwise, the source ACS would send an SM_INFO-RACK message to the destination ACS and process this SM_INFO-Request message. The source ACS should compare the Transaction Number in this message with the Transaction Number received from the same destination ACS before. Otherwise, the source ACS would discard this packet. If bigger, the source ACS would send an SM_INFO-RACK message to the destination ACS.
 
-There are two types of replies to the SM_INFO-Request message, i.e. SM_INFO-RACK representing affirmative acknowledgement and SM_INFO-RNAK representing negative acknowledgement. These are sent from the source ACS to the destination ACS. The main part of the packet is filled by source ACS as follows: I Type is SM_INFO. S Type is RACK if it is affirmative acknowledgement or RNAK if it is negative acknowledgement. Operation is NULL. When the S Type is RACK, the Data field is a few of SMI_Recs. When the S  Type is RNAK, the Data field is a 32-bit error code.
+There are two types of replies to the SM_INFO-Request message, i.e. SM_INFO-RACK representing affirmative acknowledgement and SM_INFO-RNAK representing negative acknowledgement. These are sent from the source ACS to the destination ACS. The main part of the packet is filled by the source ACS as follows: I Type is SM_INFO. S Type is RACK if it is affirmative acknowledgement or RNAK if it is negative acknowledgement. Operation is NULL. When the S Type is RACK, the Data field is a number of SMI_Recs. When the S Type is RNAK, the Data field is a 32-bit error code.
 
-When receiving an SM_INFO-RACK message, if it cannot resolve this message, the destination ACS should send an SM_INFO-Request message to the source ACS to acquire another state machine. When destination ACS can resolve the message correctly, it SHOULD:
+When receiving an SM_INFO-RACK message, if it cannot resolve this message, the destination ACS should send an SM_INFO-Request message to the source ACS to acquire another state machine. When the destination ACS can resolve the message correctly, it SHOULD:
 
 1. Compare the Transaction Number in this packet with the Transaction Number received from the same source ACS before. Otherwise, the destination ACS would discard this packet and send an SM_INFO-Request to request the latest information of the state machine. If bigger, destination ACS WOULD:
 2. Accept every SMI_Rec and process them as follows:
@@ -351,7 +350,7 @@ When receiving an SM_INFO-RACK message, if it cannot resolve this message, the d
   - If the SM_ID in SMI_Rec is bigger than the current used SM_ID, destination ACS would add this state machine to its following used state machine list.
 3. The destination ACS will send an SM_INFO-AACK message to the source ACS.
 
-When receiving an SM_INFO-RNAK message, if it cannot resolve this message, the destination ACS should send an SM_INFO-Request message to the source ACS to acquire a new state machine. When destination ACS can resolve the message correctly, it SHOULD compare the Transaction Number in this packet with the Transaction Number received from the same source ACS before. Otherwise, the destination ACS would discard this packet and send an SM_INFO-Request to request the latest information of the state machine. If bigger, destination ACS WOULD send a new correct SM_INFO-Request message to source ACS.
+When receiving an SM_INFO-RNAK message, if it cannot resolve this message, the destination ACS should send an SM_INFO-Request message to the source ACS to acquire a new state machine. When the destination ACS can resolve the message correctly, it SHOULD compare the Transaction Number in this packet with the Transaction Number received from the same source ACS before. Otherwise, the destination ACS would discard this packet and send an SM_INFO-Request to request the latest information of the state machine. If bigger, the destination ACS WOULD send a new correct SM_INFO-Request message to the source ACS.
 
 ## Request and Response of Diagnose Information
 
